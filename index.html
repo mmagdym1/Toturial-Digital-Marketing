@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معسكر المقابلة الاحترافية — التسويق الرقمي وتطوير ووردبريس</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=Tajawal:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#080b12;
+  --bg-2:#0c1119;
+  --surface:rgba(255,255,255,.035);
+  --surface-2:rgba(255,255,255,.055);
+  --border:rgba(255,255,255,.085);
+  --border-hi:rgba(232,183,105,.32);
+  --gold:#e8b769;
+  --gold-soft:#f3d5a0;
+  --teal:#3ddbc4;
+  --violet:#9b8cfa;
+  --rose:#f2789a;
+  --text:#eef2f8;
+  --muted:#95a1b4;
+  --muted-2:#6d798c;
+  --radius:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-nav:100;
+  --z-top:1000;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Tajawal',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Cairo',system-ui,sans-serif;line-height:1.35;font-weight:800}
+code,kbd,.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.86em;direction:ltr;unicode-bidi:embed}
+::selection{background:rgba(232,183,105,.28)}
+
+/* ---------- scroll progress ---------- */
+#progress{
+  position:fixed;inset-block-start:0;inset-inline:0;height:3px;z-index:var(--z-top);
+  background:linear-gradient(90deg,var(--gold),var(--teal),var(--violet));
+  transform:scaleX(0);transform-origin:right center;
+  transition:transform .1s linear;
+}
+
+/* ---------- ambient background ---------- */
+.orb{
+  position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;
+  opacity:.5;will-change:transform;
+}
+.orb.a{width:520px;height:520px;background:rgba(232,183,105,.16);inset-block-start:-160px;inset-inline-end:-140px;animation:float1 22s ease-in-out infinite}
+.orb.b{width:460px;height:460px;background:rgba(61,219,196,.11);inset-block-start:44vh;inset-inline-start:-180px;animation:float2 27s ease-in-out infinite}
+.orb.c{width:400px;height:400px;background:rgba(155,140,250,.12);inset-block-end:-140px;inset-inline-end:12vw;animation:float1 31s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(-40px,50px,0) scale(1.08)}66%{transform:translate3d(30px,-30px,0) scale(.95)}}
+@keyframes float2{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(60px,-60px,0) scale(1.12)}}
+
+.grain{
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{position:relative;z-index:2;max-width:1080px;margin-inline:auto;padding-inline:20px}
+
+/* ---------- hero ---------- */
+header.hero{
+  position:relative;z-index:2;padding-block:clamp(64px,12vh,120px) 48px;text-align:center;
+  overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;inset-block-start:0;inset-inline:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,183,105,.5),transparent);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:7px 16px;border:1px solid var(--border-hi);border-radius:999px;
+  background:rgba(232,183,105,.07);color:var(--gold-soft);
+  font-size:13.5px;font-weight:500;letter-spacing:.2px;margin-bottom:26px;
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+
+h1.title{
+  font-size:clamp(30px,5.6vw,58px);font-weight:900;letter-spacing:-.5px;
+  background:linear-gradient(120deg,#fff 15%,var(--gold-soft) 48%,var(--gold) 72%,#fff 95%);
+  background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 9s linear infinite;
+}
+@keyframes shine{to{background-position:-220% center}}
+.subtitle{
+  max-width:640px;margin:20px auto 0;color:var(--muted);
+  font-size:clamp(15px,2.2vw,18.5px);font-weight:300;line-height:1.95;
+}
+.hero-line{width:74px;height:2px;margin:30px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:34px}
+.stat{
+  flex:1 1 130px;max-width:180px;padding:16px 12px;border:1px solid var(--border);
+  border-radius:14px;background:var(--surface);backdrop-filter:blur(8px);
+  transition:transform .35s var(--ease),border-color .35s ease,background .35s ease;
+}
+.stat:hover{transform:translateY(-5px);border-color:var(--border-hi);background:var(--surface-2)}
+.stat b{display:block;font-family:'Cairo';font-size:26px;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--muted-2);letter-spacing:.3px}
+
+/* ---------- hero entrance stagger ---------- */
+.enter{opacity:0;transform:translateY(28px);animation:enterUp .85s var(--ease) forwards}
+@keyframes enterUp{to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:.05s}.d2{animation-delay:.17s}.d3{animation-delay:.29s}
+.d4{animation-delay:.41s}.d5{animation-delay:.53s}.d6{animation-delay:.65s}
+
+/* ---------- controls ---------- */
+.toolbar{
+  position:sticky;inset-block-start:0;z-index:var(--z-nav);
+  margin-block:44px 0;padding-block:14px;
+  background:rgba(8,11,18,.82);backdrop-filter:blur(16px);
+  border-block-end:1px solid var(--border);
+}
+.search-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search-box{
+  flex:1 1 240px;position:relative;display:flex;align-items:center;
+  border:1px solid var(--border);border-radius:13px;background:var(--surface);
+  transition:border-color .25s ease,box-shadow .25s ease;
+}
+.search-box:focus-within{border-color:var(--border-hi);box-shadow:0 0 0 3px rgba(232,183,105,.1)}
+.search-box svg{margin-inline-start:14px;flex-shrink:0;color:var(--muted-2)}
+#search{
+  flex:1;border:0;background:transparent;color:var(--text);
+  font-family:'Tajawal';font-size:16px;padding:13px 10px;outline:none;min-width:0;
+}
+#search::placeholder{color:var(--muted-2)}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  min-height:44px;padding:0 16px;border:1px solid var(--border);border-radius:13px;
+  background:var(--surface);color:var(--muted);cursor:pointer;
+  font-family:'Tajawal';font-size:14px;font-weight:500;white-space:nowrap;
+  transition:transform .22s var(--ease),background .25s ease,color .25s ease,border-color .25s ease;
+  touch-action:manipulation;
+}
+.btn:hover{transform:translateY(-2px);background:var(--surface-2);color:var(--text);border-color:var(--border-hi)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn:focus-visible,.chip:focus-visible,.q-head:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:12px 4px;scrollbar-width:none;-ms-overflow-style:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex-shrink:0;min-height:38px;padding:0 15px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:transparent;color:var(--muted);
+  font-family:'Tajawal';font-size:13.5px;font-weight:500;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:transform .2s var(--ease),background .25s ease,color .25s ease,border-color .25s ease;
+  touch-action:manipulation;
+}
+.chip:hover{transform:translateY(-2px);color:var(--text);border-color:var(--border-hi)}
+.chip[aria-pressed="true"]{background:var(--gold);color:#0a0a0a;border-color:var(--gold);font-weight:700}
+.chip .cnt{font-size:11.5px;opacity:.72;font-variant-numeric:tabular-nums}
+
+.meta-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-block:18px 6px}
+#result-count{font-size:13.5px;color:var(--muted-2)}
+#result-count b{color:var(--gold);font-variant-numeric:tabular-nums}
+
+/* ---------- mastery bar ---------- */
+.mastery{
+  display:flex;align-items:center;gap:12px;padding:13px 16px;margin-block:16px 30px;
+  border:1px solid var(--border);border-radius:14px;background:var(--surface);
+}
+.mastery-track{flex:1;height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.mastery-fill{
+  height:100%;width:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--teal),var(--gold));
+  transform:scaleX(0);transform-origin:right center;
+  transition:transform .6s var(--ease);
+}
+.mastery-label{font-size:13px;color:var(--muted);white-space:nowrap}
+.mastery-label b{color:var(--teal);font-variant-numeric:tabular-nums}
+
+/* ---------- question cards ---------- */
+.q-list{display:flex;flex-direction:column;gap:12px;padding-block-end:80px}
+.q-card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+  overflow:hidden;position:relative;
+  opacity:0;transform:translateY(26px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .3s ease,box-shadow .3s ease;
+}
+.q-card.visible{opacity:1;transform:translateY(0)}
+.q-card:hover{border-color:var(--border-hi);box-shadow:0 14px 40px -18px rgba(232,183,105,.3)}
+.q-card::before{
+  content:'';position:absolute;inset-block:0;inset-inline-start:0;width:3px;
+  background:var(--accent,var(--gold));transform:scaleY(0);transform-origin:top;
+  transition:transform .4s var(--ease);
+}
+.q-card.open::before,.q-card:hover::before{transform:scaleY(1)}
+.q-card.done{border-color:rgba(61,219,196,.3)}
+
+.q-head{
+  width:100%;display:flex;align-items:flex-start;gap:14px;text-align:start;
+  padding:18px 20px;background:transparent;border:0;cursor:pointer;color:inherit;
+  font-family:'Tajawal';touch-action:manipulation;
+}
+.q-num{
+  flex-shrink:0;width:34px;height:34px;border-radius:10px;
+  display:grid;place-items:center;font-family:'IBM Plex Mono';font-size:13px;font-weight:500;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);
+  font-variant-numeric:tabular-nums;
+  transition:background .3s ease,color .3s ease,transform .3s var(--ease);
+}
+.q-card.open .q-num{background:var(--accent,var(--gold));color:#0a0a0a;border-color:transparent;transform:scale(1.06)}
+.q-card.done .q-num{background:rgba(61,219,196,.16);color:var(--teal);border-color:rgba(61,219,196,.35)}
+.q-body{flex:1;min-width:0}
+.q-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
+.tag{
+  font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;
+  border:1px solid var(--border);color:var(--muted-2);background:rgba(255,255,255,.03);
+  letter-spacing:.2px;
+}
+.tag.cat{color:var(--accent,var(--gold));border-color:color-mix(in srgb,var(--accent,var(--gold)) 32%,transparent);background:color-mix(in srgb,var(--accent,var(--gold)) 9%,transparent)}
+.tag.lvl-3{color:var(--rose);border-color:rgba(242,120,154,.3)}
+.tag.lvl-2{color:var(--violet);border-color:rgba(155,140,250,.3)}
+.q-text{font-family:'Cairo';font-size:16.5px;font-weight:700;line-height:1.65;color:var(--text)}
+.q-chev{
+  flex-shrink:0;width:30px;height:30px;display:grid;place-items:center;color:var(--muted-2);
+  transition:transform .4s var(--ease),color .3s ease;
+}
+.q-card.open .q-chev{transform:rotate(180deg);color:var(--gold)}
+
+.q-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.q-card.open .q-panel{grid-template-rows:1fr}
+.q-panel-inner{overflow:hidden;opacity:0;transition:opacity .3s ease}
+.q-card.open .q-panel-inner{opacity:1;transition:opacity .45s ease .12s}
+.answer{padding:4px 20px 20px;border-block-start:1px dashed var(--border);margin-inline:20px 20px;padding-inline:0;margin-block-start:2px}
+.answer > *:first-child{margin-block-start:16px}
+.answer p{color:#d3dae5;margin-block:0 13px;font-size:15.3px;line-height:2}
+.answer strong{color:var(--gold-soft);font-weight:700}
+.answer em{color:var(--teal);font-style:normal;font-weight:500}
+.answer ul,.answer ol{margin:0 0 14px;padding-inline-start:20px;color:#cbd3e0}
+.answer li{margin-block-end:8px;font-size:15px;line-height:1.95}
+.answer li::marker{color:var(--gold);font-weight:700}
+.answer h4{
+  font-size:14px;color:var(--text);margin-block:20px 10px;
+  display:flex;align-items:center;gap:9px;font-weight:700;
+}
+.answer h4::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent,var(--gold));flex-shrink:0}
+.answer code{background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:6px;padding:1.5px 6px;color:var(--gold-soft)}
+.answer pre{
+  background:#05070c;border:1px solid var(--border);border-radius:12px;
+  padding:14px 16px;overflow-x:auto;margin-block:0 15px;direction:ltr;text-align:left;
+}
+.answer pre code{background:none;border:0;padding:0;color:#c8d3e6;font-size:12.8px;line-height:1.85;display:block;white-space:pre}
+.note{
+  border-inline-start:3px solid var(--teal);background:rgba(61,219,196,.06);
+  border-radius:0 10px 10px 0;padding:12px 15px;margin-block:0 14px;
+}
+.note p{margin:0;font-size:14.4px;color:#c3d7d4}
+.note b{color:var(--teal)}
+.trap{border-inline-start-color:var(--rose);background:rgba(242,120,154,.06)}
+.trap p{color:#e8cdd5}
+.trap b{color:var(--rose)}
+
+.q-foot{display:flex;gap:9px;flex-wrap:wrap;padding:14px 20px 18px;border-block-start:1px solid var(--border);margin-block-start:6px}
+.mini{
+  min-height:38px;padding:0 13px;border-radius:10px;border:1px solid var(--border);
+  background:transparent;color:var(--muted-2);cursor:pointer;
+  font-family:'Tajawal';font-size:12.8px;font-weight:500;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:transform .2s var(--ease),color .25s ease,border-color .25s ease,background .25s ease;
+  touch-action:manipulation;
+}
+.mini:hover{transform:translateY(-2px);color:var(--text);border-color:var(--border-hi)}
+.mini:active{transform:scale(.96)}
+.mini.on{color:var(--teal);border-color:rgba(61,219,196,.42);background:rgba(61,219,196,.09)}
+
+.empty{text-align:center;padding:60px 20px;color:var(--muted-2)}
+.empty svg{margin-bottom:14px;color:var(--border-hi)}
+
+/* ---------- section divider ---------- */
+.sec-head{
+  display:flex;align-items:center;gap:14px;margin-block:34px 14px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+}
+.sec-head.visible{opacity:1;transform:translateY(0)}
+.sec-head h3{font-size:17px;color:var(--text);white-space:nowrap}
+.sec-head i{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.sec-head .badge{font-size:12px;color:var(--muted-2);border:1px solid var(--border);border-radius:99px;padding:2px 10px;font-variant-numeric:tabular-nums}
+
+/* ---------- top button ---------- */
+#top{
+  position:fixed;inset-block-end:22px;inset-inline-start:22px;z-index:var(--z-nav);
+  width:46px;height:46px;border-radius:14px;border:1px solid var(--border-hi);
+  background:rgba(12,17,25,.9);backdrop-filter:blur(10px);color:var(--gold);
+  display:grid;place-items:center;cursor:pointer;
+  opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;
+  transition:opacity .35s ease,transform .35s var(--ease),background .25s ease;
+}
+#top.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+#top:hover{background:var(--gold);color:#0a0a0a}
+
+footer{
+  text-align:center;padding:34px 20px 46px;border-block-start:1px solid var(--border);
+  color:var(--muted-2);font-size:13.5px;position:relative;z-index:2;
+}
+footer b{color:var(--gold-soft)}
+
+@media (max-width:600px){
+  .answer{margin-inline:16px}
+  .q-head{padding:16px 15px;gap:11px}
+  .q-text{font-size:15.4px}
+  .q-foot{padding-inline:15px}
+  .toolbar{margin-block-start:30px}
+  #top{inset-block-end:16px;inset-inline-start:16px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;scroll-behavior:auto !important;
+  }
+  .enter,.q-card,.sec-head{opacity:1 !important;transform:none !important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div class="grain"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow enter d1"><span class="dot"></span> جلسة تدريب مغلقة — مستوى Senior</div>
+    <h1 class="title enter d2">معسكر المقابلة الاحترافية</h1>
+    <p class="subtitle enter d3">
+      اثنان وخمسون سؤالاً كما تُسأل فعلياً في مقابلات التسويق الرقمي وتطوير ووردبريس — مع الإجابة النموذجية،
+      وشرح <em style="color:var(--gold-soft);font-style:normal">طريقة العمل من الداخل</em>، والفخ المخفي في كل سؤال.
+    </p>
+    <div class="hero-line enter d4"></div>
+    <div class="stats enter d5">
+      <div class="stat"><b data-count="52">0</b><span>سؤال بإجابة كاملة</span></div>
+      <div class="stat"><b data-count="9">0</b><span>محاور تخصصية</span></div>
+      <div class="stat"><b data-count="3">0</b><span>مستويات صعوبة</span></div>
+      <div class="stat"><b data-count="58">0</b><span>فخ وملاحظة ميدانية</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="search-row">
+      <label class="search-box" for="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="ابحث في الأسئلة… مثال: hooks أو LCP أو ROAS" autocomplete="off">
+      </label>
+      <button class="btn" id="expand-all" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <span>فتح الكل</span>
+      </button>
+      <button class="btn" id="quiz-mode" type="button" aria-pressed="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.1 9a3 3 0 1 1 4 2.8c-.8.3-1.1 1-1.1 1.7v.5"/><path d="M12 17.5h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <span>وضع الاختبار</span>
+      </button>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="تصفية حسب المحور"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="meta-row">
+    <div id="result-count"></div>
+  </div>
+  <div class="mastery">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="M20 6L9 17l-5-5"/></svg>
+    <div class="mastery-track"><div class="mastery-fill" id="mastery-fill"></div></div>
+    <div class="mastery-label">أتقنت <b id="mastery-num">0</b> / 52</div>
+  </div>
+  <div class="q-list" id="list"></div>
+</main>
+
+<footer>
+  <p>مُعدّ كجلسة تدريب داخلية — <b>التسويق الرقمي × تطوير ووردبريس</b></p>
+  <p style="margin-top:6px;font-size:12.5px;opacity:.65">اقرأ السؤال، جاوب بصوت عالٍ، ثم افتح الإجابة وقارن. الفرق بينهما هو منهج مذاكرتك.</p>
+</footer>
+
+<button id="top" type="button" aria-label="العودة للأعلى">
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+const CATS = {
+  core:  { name:'ووردبريس — المعمار', color:'#e8b769' },
+  adv:   { name:'ووردبريس — تطوير متقدم', color:'#f2a65a' },
+  perf:  { name:'الأداء والسرعة', color:'#3ddbc4' },
+  sec:   { name:'الأمان', color:'#f2789a' },
+  seo:   { name:'SEO', color:'#7ed957' },
+  ppc:   { name:'الإعلانات المدفوعة', color:'#9b8cfa' },
+  data:  { name:'القياس والتحليلات', color:'#5ab9f5' },
+  strat: { name:'الاستراتيجية والمحتوى', color:'#f5c96b' },
+  ecom:  { name:'التجارة الإلكترونية', color:'#ff9f7a' }
+};
+const LVL = { 1:'أساسي', 2:'متقدم', 3:'خبير' };
+
+const Q = [];
+
+Q.push(
+{n:1,cat:'core',lvl:2,kw:'lifecycle bootstrap index wp-load wp-settings the_post loop',
+q:'اشرح لي دورة حياة الطلب (Request Lifecycle) في ووردبريس من لحظة كتابة الرابط حتى ظهور الصفحة.',
+a:`<p>ده السؤال اللي بيفصل اللي "بيركّب قوالب" عن اللي <strong>بيفهم النظام</strong>. الرحلة بتمر بست محطات:</p>
+<h4>المحطات بالترتيب</h4>
+<ol>
+<li><code>index.php</code> يعرّف الثابت <code>WP_USE_THEMES</code> ويستدعي <code>wp-blog-header.php</code>.</li>
+<li><code>wp-load.php</code> يلقط <code>wp-config.php</code> (بيانات القاعدة والثوابت) ثم <code>wp-settings.php</code>.</li>
+<li><code>wp-settings.php</code> هو قلب الإقلاع: يحمّل الدوال الأساسية، يفتح اتصال قاعدة البيانات عبر <code>$wpdb</code>، يحمّل <em>Must-Use plugins</em> ثم <em>الإضافات المفعّلة</em> ثم <em>الثيم</em> (functions.php)، وينفّذ الخطاف <code>plugins_loaded</code> ثم <code>init</code>.</li>
+<li><strong>الـ Rewrite / Parsing:</strong> كائن <code>$wp</code> يقرأ الرابط ويحوّله عبر قواعد إعادة الكتابة إلى <em>Query Vars</em> (مثل <code>category_name=news&paged=2</code>).</li>
+<li><strong>Main Query:</strong> تُبنى <code>WP_Query</code> الرئيسية من هذه المتغيرات، تنفّذ استعلام SQL، وتملأ <code>$wp_query->posts</code>. هنا بالضبط يعمل خطاف <code>pre_get_posts</code>.</li>
+<li><strong>Template Loader:</strong> يحدد أي ملف قالب يناسب نوع الصفحة حسب التسلسل الهرمي، ثم يُعرض داخل الـ Loop، وأخيراً <code>wp_footer</code> و<code>shutdown</code>.</li>
+</ol>
+<h4>ليه ده مهم عملياً؟</h4>
+<p>لأن كل خطأ شائع سببه التدخل في المحطة الغلط. لو عدّلت نتائج الأرشيف داخل الـ Loop بـ <code>query_posts</code> فأنت بتعيد تشغيل الاستعلام من الصفر وتكسر الترقيم؛ الصح التدخل في المحطة الخامسة قبل تنفيذ الاستعلام.</p>
+<div class="trap note"><p><b>الفخ:</b> إجابة "بيقرأ الداتابيز ويطلع الصفحة" تُسقطك فوراً. المُقابِل بيدوّر على ذكر <code>wp-settings.php</code> وترتيب تحميل MU-plugins قبل الإضافات قبل الثيم — لأن ده اللي بيحدد أين تضع كودك.</p></div>`},
+
+{n:2,cat:'core',lvl:1,kw:'action filter hooks add_action add_filter apply_filters do_action',
+q:'ما الفرق الجوهري بين Action و Filter؟ ومتى تختار كلاً منهما؟',
+a:`<p>الاثنان يستخدمان نفس نظام الخطافات الداخلي، والفرق في <strong>العقد</strong> لا في الآلية:</p>
+<ul>
+<li><strong>Action</strong> = "حدث وقع، نفّذ شيئاً". لا يُتوقع منك إرجاع قيمة. يُطلق بـ <code>do_action()</code>.</li>
+<li><strong>Filter</strong> = "خُذ هذه القيمة وأعِدها بعد تعديلها". <em>يجب</em> أن ترجع قيمة دائماً. يُطلق بـ <code>apply_filters()</code>.</li>
+</ul>
+<h4>خطأ يتكرر كل يوم</h4>
+<pre><code>// خطأ: فلتر بدون return -> العنوان يختفي من الموقع كله
+add_filter('the_title', function($title){
+    if(is_admin()) return $title;
+    esc_html($title);      // لا يوجد return
+});
+
+// صح
+add_filter('the_title', function($title, $id){
+    return is_front_page() ? '★ '.$title : $title;
+}, 10, 2);</code></pre>
+<h4>المعاملان الأخيران</h4>
+<p><code>priority</code> (افتراضي 10) يحدد ترتيب التنفيذ — الأصغر أولاً. و<code>accepted_args</code> يحدد كم وسيطاً تستقبله دالتك؛ نسيانه هو سبب خطأ "too few arguments" الشهير.</p>
+<div class="note"><p><b>معلومة يحبها المُقابِل:</b> <code>do_action</code> نفسه مبني داخلياً على <code>WP_Hook</code> بنفس الطريقة، ولذلك يمكنك عملياً استخدام <code>add_filter</code> للتسجيل على Action — لكن لا تفعل، لأنه يكسر وضوح النية للفريق.</p></div>`},
+
+{n:3,cat:'core',lvl:2,kw:'wp_query pre_get_posts query_posts get_posts main query',
+q:'ما الفرق بين WP_Query و get_posts و query_posts و pre_get_posts؟ وأيها تستخدم لتعديل نتائج أرشيف؟',
+a:`<h4>الأربعة بالترتيب من الأسوأ للأفضل</h4>
+<ul>
+<li><code>query_posts()</code> — <strong>محظور.</strong> يدمّر الاستعلام الرئيسي ويستبدله، يكسر الترقيم والـ conditional tags، ويجبرك على <code>wp_reset_query()</code>. لا يوجد سبب مشروع لاستخدامه في 2026.</li>
+<li><code>get_posts()</code> — غلاف حول <code>WP_Query</code> يعيد مصفوفة كائنات فقط. مناسب لجلب بيانات بسيطة، ويضبط <code>no_found_rows=true</code> تلقائياً (أسرع، لكن بلا ترقيم).</li>
+<li><code>new WP_Query()</code> — الخيار الصحيح <strong>للاستعلامات الثانوية</strong> (سلايدر، قسم "مقالات ذات صلة"). لازم <code>wp_reset_postdata()</code> بعده.</li>
+<li><code>pre_get_posts</code> — الخيار الصحيح <strong>لتعديل الاستعلام الرئيسي</strong>، لأنه يعدّل الاستعلام قبل تنفيذه بدل تشغيله مرتين.</li>
+</ul>
+<h4>النمط المعياري</h4>
+<pre><code>add_action('pre_get_posts', function($q){
+    if (is_admin() || !$q->is_main_query()) return;
+    if ($q->is_post_type_archive('product')) {
+        $q->set('posts_per_page', 24);
+        $q->set('orderby', 'meta_value_num');
+        $q->set('meta_key', '_price');
+    }
+});</code></pre>
+<div class="trap note"><p><b>الفخ:</b> نسيان <code>is_admin()</code> و<code>is_main_query()</code>. بدونهما ستعدّل استعلامات لوحة التحكم واستعلامات AJAX وتتسبب في أعطال غامضة يصعب تتبّعها.</p></div>`},
+
+{n:4,cat:'core',lvl:1,kw:'template hierarchy single page archive front-page',
+q:'اشرح Template Hierarchy، وكيف تستفيد منه بدل الاعتماد على شروط داخل ملف واحد.',
+a:`<p>ووردبريس يبحث عن ملف القالب حسب تسلسل من <em>الأكثر تحديداً</em> إلى <em>الأعم</em>، وأول ملف موجود يفوز، وإن لم يوجد أي منها يسقط على <code>index.php</code>.</p>
+<h4>أمثلة على المسارات</h4>
+<ul>
+<li>مقال مفرد من نوع <code>product</code> باسم <code>abaya</code>: <code>single-product-abaya.php</code> ← <code>single-product.php</code> ← <code>single.php</code> ← <code>singular.php</code> ← <code>index.php</code>.</li>
+<li>تصنيف: <code>taxonomy-{tax}-{term}.php</code> ← <code>taxonomy-{tax}.php</code> ← <code>taxonomy.php</code> ← <code>archive.php</code>.</li>
+<li>صفحة: <code>{custom-template}.php</code> ← <code>page-{slug}.php</code> ← <code>page-{id}.php</code> ← <code>page.php</code>.</li>
+</ul>
+<h4>القيمة العملية</h4>
+<p>بدل ملف <code>page.php</code> مليء بـ <code>if (is_page('contact'))</code>، افصل الملفات. النتيجة: كود أنظف، تعارض أقل، وسهولة تسليم للفريق. ولمشاركة الأجزاء استخدم <code>get_template_part('template-parts/card','product')</code> مع تمرير بيانات عبر الوسيط الثالث <code>$args</code>.</p>
+<div class="note"><p><b>للتشخيص:</b> فلتر <code>template_include</code> يخبرك أي ملف تم اختياره فعلياً — أسرع طريقة لحل "ليه تعديلاتي مش ظاهرة؟".</p></div>`},
+
+{n:5,cat:'core',lvl:2,kw:'cpt custom post type taxonomy rewrite flush',
+q:'متى تستخدم Custom Post Type ومتى يكفيك Taxonomy أو حتى Page عادية؟',
+a:`<h4>قاعدة القرار</h4>
+<ul>
+<li><strong>CPT</strong> = نوع محتوى له <em>حقول وسلوك ودورة حياة مختلفة</em>: منتجات، عقارات، وظائف، دراسات حالة.</li>
+<li><strong>Taxonomy</strong> = طريقة <em>تصنيف</em> محتوى موجود: علامة تجارية، مدينة، مستوى صعوبة. لو السؤال "كيف أجمّع؟" فهي تصنيف وليست CPT.</li>
+<li><strong>Page</strong> = محتوى فريد لا يتكرر: من نحن، سياسة الخصوصية.</li>
+</ul>
+<h4>أخطاء تكلف مشروعاً كاملاً</h4>
+<ol>
+<li>تسجيل CPT داخل الثيم بدل إضافة. تغيير الثيم = اختفاء كل المحتوى من اللوحة. الصح: إضافة مستقلة أو MU-plugin.</li>
+<li>عدم استدعاء <code>flush_rewrite_rules()</code> عند التفعيل فقط — لا في <code>init</code> لأنها عملية ثقيلة جداً.</li>
+<li>إهمال <code>'show_in_rest' => true</code> فيفقد النوع محرر جوتنبرج والـ REST API.</li>
+</ol>
+<pre><code>register_post_type('case_study', [
+  'labels'       => [...],
+  'public'       => true,
+  'has_archive'  => true,
+  'show_in_rest' => true,
+  'supports'     => ['title','editor','thumbnail','excerpt','revisions'],
+  'rewrite'      => ['slug' => 'case-studies', 'with_front' => false],
+]);</code></pre>
+<div class="trap note"><p><b>فخ SEO:</b> <code>with_front</code> إن تُرك افتراضياً يضيف بادئة الروابط الدائمة (<code>/blog/</code>) أمام أرشيفك ويولّد بنية روابط قبيحة يصعب تغييرها لاحقاً بدون إعادة توجيه شاملة.</p></div>`},
+
+{n:6,cat:'core',lvl:1,kw:'enqueue scripts styles wp_enqueue dependencies version',
+q:'لماذا نستخدم wp_enqueue_script بدل وضع وسم script مباشرة في الهيدر؟',
+a:`<p>لأن نظام الطابور (Enqueue) يحل أربع مشاكل لا يحلها الوسم اليدوي:</p>
+<ul>
+<li><strong>التبعيات:</strong> تحدد أن سكربتك يحتاج jQuery فيضمن ووردبريس ترتيب التحميل الصحيح.</li>
+<li><strong>منع التكرار:</strong> لو ثلاث إضافات تحتاج نفس المكتبة تُحمّل نسخة واحدة.</li>
+<li><strong>إبطال الكاش:</strong> الوسيط <code>$ver</code> يضيف بصمة للرابط، فيلتقط المتصفح النسخة الجديدة بعد كل تعديل.</li>
+<li><strong>التحكم الشرطي:</strong> تحمّل الملف في الصفحة التي تحتاجه فقط — وهذا مكسب أداء مباشر.</li>
+</ul>
+<pre><code>add_action('wp_enqueue_scripts', function () {
+  if (!is_page_template('templates/booking.php')) return;
+
+  wp_enqueue_script(
+    'booking',
+    get_theme_file_uri('/assets/js/booking.js'),
+    ['wp-element'],
+    filemtime(get_theme_file_path('/assets/js/booking.js')), // إبطال تلقائي
+    ['strategy' => 'defer', 'in_footer' => true]
+  );
+
+  wp_localize_script('booking', 'BK', [
+    'ajax'  => admin_url('admin-ajax.php'),
+    'nonce' => wp_create_nonce('bk_book'),
+  ]);
+});</code></pre>
+<div class="note"><p><b>نقطة تميّز:</b> استخدام <code>filemtime()</code> كرقم إصدار بدل رقم ثابت يعني أنك لن تسأل عميلك "امسح الكاش" مرة أخرى.</p></div>`},
+
+{n:7,cat:'core',lvl:2,kw:'options transients object cache autoload wp_options',
+q:'اشرح الفرق بين Options API و Transients و Object Cache، ومتى تستخدم كلاً منها.',
+a:`<h4>ثلاث طبقات مختلفة تماماً</h4>
+<ul>
+<li><strong>Options</strong> — تخزين دائم في جدول <code>wp_options</code>. للإعدادات التي لا تنتهي صلاحيتها (مفتاح API، خيارات الثيم).</li>
+<li><strong>Transients</strong> — تخزين <em>مؤقت بصلاحية</em>. للبيانات المكلفة إعادة توليدها: نتيجة استعلام ثقيل، رد من API خارجي، عدّاد.</li>
+<li><strong>Object Cache</strong> — تخزين في الذاكرة. افتراضياً <em>غير دائم</em> (يعيش داخل الطلب الواحد فقط)، لكن مع Redis أو Memcached يصبح دائماً عبر الطلبات.</li>
+</ul>
+<h4>الترابط المهم</h4>
+<p>عند وجود Object Cache دائم، <strong>تتحول الـ Transients تلقائياً</strong> لتُخزَّن في Redis بدل جدول القاعدة. لهذا الكود المكتوب بـ Transients يستفيد مجاناً عند ترقية الاستضافة.</p>
+<pre><code>function agency_get_feed() {
+  $key  = 'agency_feed_v2';
+  $data = get_transient($key);
+  if (false !== $data) return $data;
+
+  $res = wp_remote_get('https://api.example.com/feed', ['timeout' => 8]);
+  if (is_wp_error($res)) {
+    set_transient($key, [], 5 * MINUTE_IN_SECONDS); // كاش سلبي يمنع طوفان الطلبات
+    return [];
+  }
+  $data = json_decode(wp_remote_retrieve_body($res), true);
+  set_transient($key, $data, 6 * HOUR_IN_SECONDS);
+  return $data;
+}</code></pre>
+<div class="trap note"><p><b>الفخ الأخطر:</b> استخدام <code>add_option($k,$v)</code> بقيمة autoload افتراضية لبيانات ضخمة. كل خيار autoload يُحمَّل في <em>كل</em> طلب. جدول options منتفخ بـ 3 ميجا autoloaded هو السبب الأول لبطء TTFB في المواقع القديمة.</p></div>`},
+
+{n:8,cat:'core',lvl:3,kw:'remove_action class hook priority anonymous function',
+q:'إضافة طرف ثالث تضيف خطافاً من داخل كلاس. كيف تزيله؟ وما مشكلة الدوال المجهولة؟',
+a:`<p>الحالة الأولى — <strong>كلاس بنمط Singleton</strong> يمكنك الوصول لنسخته:</p>
+<pre><code>remove_action('wp_head', [ Vendor_Plugin::instance(), 'print_meta' ], 10);</code></pre>
+<p>الحالة الثانية — <strong>كلاس بدون وصول للنسخة</strong>. نفتش في سجل الخطافات ونطابق اسم الكلاس والدالة:</p>
+<pre><code>function unhook_by_class($tag, $class, $method, $priority = 10) {
+  global $wp_filter;
+  if (empty($wp_filter[$tag]->callbacks[$priority])) return false;
+  foreach ($wp_filter[$tag]->callbacks[$priority] as $id => $cb) {
+    if (is_array($cb['function'])
+        && is_a($cb['function'][0], $class)
+        && $cb['function'][1] === $method) {
+      unset($wp_filter[$tag]->callbacks[$priority][$id]);
+      return true;
+    }
+  }
+  return false;
+}
+add_action('init', fn() => unhook_by_class('wp_head','Vendor_Plugin','print_meta'), 99);</code></pre>
+<h4>مشكلة الدوال المجهولة (Closures)</h4>
+<p>الخطاف المسجَّل بـ <code>add_action('init', function(){...})</code> <strong>لا يمكن إزالته عملياً</strong>، لأن معرّفه مبني على تجزئة الكائن نفسه ولا يوجد مرجع تستطيع تمريره. لذلك في كود الإنتاج نستخدم دوال أو ميثودات مسمّاة، ونترك الـ closures للأشياء التي نعرف يقيناً أن أحداً لن يحتاج إزالتها.</p>
+<div class="note"><p><b>التوقيت:</b> لا يمكنك إزالة خطاف قبل تسجيله. لو الإضافة تسجّل في <code>init</code> فأزِل في <code>init</code> بأولوية أعلى رقماً، أو في <code>wp_loaded</code>.</p></div>`},
+
+{n:9,cat:'core',lvl:2,kw:'child theme functions.php parent style enqueue',
+q:'ما البديل الصحيح لتعديل ملفات الثيم مباشرة؟ وكيف تبني Child Theme صحيحاً؟',
+a:`<p>التعديل المباشر يعني أن أول تحديث للثيم يمسح عملك. الحل الصحيح يعتمد على نوع التعديل:</p>
+<ul>
+<li>تعديلات <strong>بصرية أو قوالب</strong> ← Child Theme.</li>
+<li>وظائف <strong>مستقلة عن الشكل</strong> (CPT، شورت كود، تكامل API) ← إضافة مستقلة، لأن هذه الوظائف يجب أن تبقى لو غيّر العميل الثيم.</li>
+</ul>
+<h4>الطريقة الصحيحة لوراثة الأنماط</h4>
+<pre><code>// child-theme/functions.php
+add_action('wp_enqueue_scripts', function () {
+  $parent = 'parent-style';
+  wp_enqueue_style($parent, get_template_directory_uri().'/style.css');
+  wp_enqueue_style('child-style',
+    get_stylesheet_directory_uri().'/style.css',
+    [$parent],
+    wp_get_theme()->get('Version')
+  );
+}, 20);</code></pre>
+<div class="trap note"><p><b>الفخ الشائع:</b> استخدام <code>@import</code> داخل style.css لجلب أنماط الأب. هذا يحوّل التحميل من متوازٍ إلى متسلسل ويؤخر أول رسم للصفحة. الصحيح دائماً هو التبعية عبر Enqueue.</p></div>
+<div class="note"><p><b>مسائل التفاصيل:</b> <code>get_template_directory()</code> يشير للثيم <em>الأب</em>، و<code>get_stylesheet_directory()</code> يشير للثيم <em>الابن</em>. خلطهما هو سبب معظم أعطال الـ Child Themes.</p></div>`},
+
+{n:10,cat:'core',lvl:3,kw:'wp-cron real cron disable spawn scheduled events',
+q:'لماذا WP-Cron غير موثوق؟ وكيف تجعله موثوقاً على موقع إنتاجي؟',
+a:`<p>WP-Cron ليس Cron حقيقياً — إنه <strong>مُجدوِل يعتمد على الزيارات</strong>. عند كل طلب صفحة يفحص ووردبريس هل هناك مهمة متأخرة ويطلقها.</p>
+<h4>نتائج ذلك</h4>
+<ul>
+<li>موقع بلا زيارات = مهام لا تعمل أبداً (نشر مجدول لا يُنشر، نسخ احتياطي لا يُؤخذ).</li>
+<li>موقع بزيارات عالية = محاولات تشغيل متزاحمة تستهلك المعالج.</li>
+<li>مع كاش الصفحات الكامل، الزيارات لا تصل لـ PHP أصلاً فتتوقف المهام.</li>
+</ul>
+<h4>الحل المعياري</h4>
+<pre><code>// 1) في wp-config.php
+define('DISABLE_WP_CRON', true);
+
+// 2) في كرون الخادم — كل 5 دقائق
+*/5 * * * * cd /var/www/site && wp cron event run --due-now --quiet</code></pre>
+<p>استخدام <code>wp cron</code> عبر WP-CLI أفضل من ضرب <code>wp-cron.php</code> بـ curl، لأنه يعمل بصلاحيات CLI بلا حدود زمن الويب ولا يمر عبر طبقة الكاش أو جدار الحماية.</p>
+<div class="note"><p><b>للمهام الثقيلة</b> (معالجة آلاف الصفوف): لا تضعها في مهمة واحدة. استخدم معالجة على دفعات (Batch) حيث تعالج المهمة 50 عنصراً ثم تعيد جدولة نفسها — وإلا ستصطدم بمهلة التنفيذ وتترك البيانات في حالة نصفية.</p></div>`}
+);
+Q.push(
+{n:11,cat:'adv',lvl:2,kw:'rest api admin-ajax endpoint permission_callback',
+q:'REST API أم admin-ajax؟ ومتى تفضّل كلاً منهما؟',
+a:`<h4>المقارنة الحقيقية</h4>
+<ul>
+<li><code>admin-ajax.php</code> يحمّل نواة ووردبريس <em>كاملة مع لوحة التحكم</em> في كل طلب، ويستقبل كل الطلبات على نقطة نهاية واحدة يفرّق بينها بمعامل <code>action</code>. لا يوجد فيه مخطط بيانات ولا توثيق ذاتي.</li>
+<li><strong>REST API</strong> يعطيك مسارات دلالية، تحقق تلقائي من المعاملات (<code>args</code>)، فصل واضح للصلاحيات (<code>permission_callback</code>)، ورموز حالة HTTP صحيحة — وقابل للكاش على مستوى الحافة لطلبات القراءة.</li>
+</ul>
+<pre><code>add_action('rest_api_init', function () {
+  register_rest_route('agency/v1', '/leads', [
+    'methods'  => WP_REST_Server::CREATABLE,
+    'callback' => 'agency_create_lead',
+    'permission_callback' => function () {
+      return current_user_can('edit_posts');
+    },
+    'args' => [
+      'email' => [
+        'required'          => true,
+        'validate_callback' => fn($v) => is_email($v),
+        'sanitize_callback' => 'sanitize_email',
+      ],
+    ],
+  ]);
+});</code></pre>
+<div class="trap note"><p><b>فخ يفشل مراجعات الأمان:</b> كتابة <code>'permission_callback' => '__return_true'</code> لتخطي المشكلة. هذا يفتح نقطتك للعالم كله. إن كانت النقطة عامة فعلاً فاكتب ذلك صراحة مع تحديد معدل الطلبات، ولا تعتمد على الـ nonce وحده لأنه حماية CSRF لا آلية مصادقة.</p></div>
+<p><strong>متى تبقى مع admin-ajax؟</strong> عند التعامل مع كود قديم يعتمد عليه، أو داخل لوحة التحكم مع دوال تفترض بيئة الأدمن محمّلة.</p>`},
+
+{n:12,cat:'adv',lvl:3,kw:'plugin architecture psr-4 composer namespace autoload singleton',
+q:'كيف تبني إضافة بمعمار احترافي بدل ملف واحد بألف سطر؟',
+a:`<h4>الهيكل الذي أتوقعه من مطور Senior</h4>
+<pre><code>agency-core/
+├── agency-core.php        # ملف الإقلاع فقط
+├── composer.json          # PSR-4 autoload
+├── src/
+│   ├── Plugin.php         # المنسّق
+│   ├── PostTypes/CaseStudy.php
+│   ├── Rest/LeadsController.php
+│   ├── Admin/SettingsPage.php
+│   └── Support/Container.php
+├── assets/  (src + dist)
+├── templates/
+└── tests/</code></pre>
+<h4>المبادئ الحاكمة</h4>
+<ul>
+<li><strong>ملف الإقلاع لا يحتوي منطقاً:</strong> يفحص إصدار PHP، يحمّل الـ autoloader، ثم يستدعي <code>Plugin::boot()</code>.</li>
+<li><strong>فئة واحدة = مسؤولية واحدة.</strong> فئة تسجّل CPT لا تعرف شيئاً عن نموذج الاتصال.</li>
+<li><strong>حقن التبعيات بدل استدعاءات ساكنة</strong> — لأن الساكن غير قابل للاختبار.</li>
+<li><strong>بادئة لكل شيء عام:</strong> أسماء النطاقات (namespaces) وأسماء الخيارات والخطافات. بدونها ستتصادم مع إضافات أخرى.</li>
+<li><strong>خطافات التفعيل/التعطيل</strong> لإنشاء الجداول وتنظيف الجدولة — وليس في <code>init</code>.</li>
+</ul>
+<div class="note"><p><b>تفصيلة تُظهر النضج:</b> ضع <code>vendor/</code> الخاصة بإضافتك في نطاق مُعزَل (Mozart / PHP-Scoper). وإلا فإن إضافتك وإضافة أخرى قد تحمّلان إصدارين مختلفين من نفس المكتبة، والفائز يكون من حُمِّل أولاً — عطل عشوائي يستحيل تشخيصه على الإنتاج.</p></div>`},
+
+{n:13,cat:'adv',lvl:2,kw:'gutenberg block acf native block.json editor',
+q:'كيف تبني بلوك مخصص في جوتنبرج؟ ومتى تختار ACF Blocks بدل البلوك الأصلي؟',
+a:`<h4>البلوك الأصلي (Native / block.json)</h4>
+<p>يُبنى بـ React ويُسجَّل عبر <code>block.json</code> الذي يصف الاسم والسمات والأنماط والتبعيات، ثم <code>register_block_type(__DIR__)</code> في PHP. يوفّر تجربة تحرير مباشرة داخل الصفحة، ودعم كامل لأنماط الثيم (theme.json).</p>
+<h4>بلوكات ACF</h4>
+<p>تُسجَّل بـ PHP وتُعرض عبر قالب PHP، وحقولها تُبنى بواجهة ACF بلا خطوة بناء (build step).</p>
+<h4>قاعدة الاختيار العملية</h4>
+<ul>
+<li><strong>ACF Blocks</strong> عندما: الفريق PHP-first، المشروع موقع عميل، والوقت ضيق. الإنتاجية أعلى بمرتين تقريباً.</li>
+<li><strong>Native Blocks</strong> عندما: منتج ستوزّعه، تحتاج تجربة تحرير مرئية دقيقة، أو تريد ألا تكون مرتبطاً بإضافة طرف ثالث.</li>
+</ul>
+<div class="trap note"><p><b>الفخ التقني:</b> عدم فصل الأنماط. البلوك يحتاج <code>editorStyle</code> منفصلاً عن <code>style</code>؛ وإلا فإما يبدو مكسوراً في المحرر أو تُسرَّب أنماط المحرر للواجهة. وإن أهملت <code>viewScript</code> فلن يعمل التفاعل على الواجهة أصلاً.</p></div>
+<div class="note"><p><b>نضج معماري:</b> استخدم <code>render_callback</code> (البلوكات الديناميكية) للمحتوى المتغيّر. البلوك الثابت يخزّن HTML داخل المقال، وأي تعديل على القالب لاحقاً يسبب "Block validation error" على مئات الصفحات.</p></div>`},
+
+{n:14,cat:'adv',lvl:3,kw:'migration staging production serialized search replace wp-cli',
+q:'تنقل موقعاً من Staging إلى Production. لماذا لا تستخدم Find & Replace على ملف SQL؟',
+a:`<p>لأن ووردبريس يخزّن مصفوفات وكائنات في القاعدة بصيغة <strong>Serialized</strong>، وهذه الصيغة تسجّل <em>طول كل نص</em>:</p>
+<pre><code>a:1:{s:3:"url";s:22:"https://staging.site.sa";}
+                          ^^ الطول المسجّل</code></pre>
+<p>لو استبدلت النطاق بآخر مختلف الطول، يصبح الرقم المسجّل خاطئاً فتفشل عملية فك التسلسل، وتفقد إعدادات الويدجت وخيارات الثيم وبيانات ACF بصمت — بدون أي رسالة خطأ.</p>
+<h4>الطريقة الصحيحة</h4>
+<pre><code>wp search-replace 'https://staging.site.sa' 'https://site.sa' \\
+  --all-tables-with-prefix --precise --recurse-objects --skip-columns=guid --dry-run</code></pre>
+<p>احذف <code>--dry-run</code> بعد مراجعة النتيجة.</p>
+<h4>قائمة ما بعد النقل</h4>
+<ol>
+<li>لا تلمس عمود <code>guid</code> إطلاقاً — هو معرّف داخلي للخلاصات وليس رابطاً.</li>
+<li>ارفع حظر الفهرسة (خيار <code>blog_public</code>) الذي كان مفعّلاً على الـ Staging.</li>
+<li>أعد بناء الروابط الدائمة: <code>wp rewrite flush</code>.</li>
+<li>راجع المسارات المطلقة في <code>wp_options</code> ومهام الكرون وبيانات SMTP.</li>
+<li>افحص عناوين redirect وشهادة SSL وملف <code>robots.txt</code>.</li>
+</ol>
+<div class="note"><p><b>البديل بدون CLI:</b> أداة Search-Replace-DB أو إضافة Better Search Replace — كلاهما يعالج التسلسل بشكل صحيح.</p></div>`},
+
+{n:15,cat:'adv',lvl:3,kw:'meta_query tax_query performance postmeta index slow',
+q:'صفحة أرشيف تعتمد على meta_query أصبحت بطيئة جداً مع نمو المحتوى. لماذا وكيف تعالجها؟',
+a:`<h4>السبب البنيوي</h4>
+<p>جدول <code>wp_postmeta</code> مبني بنمط EAV: كل حقل صف مستقل، وعمود <code>meta_value</code> من نوع <code>LONGTEXT</code> <strong>غير مفهرس بالكامل</strong>. كل شرط في <code>meta_query</code> يضيف عملية JOIN جديدة على نفس الجدول. ثلاثة شروط = ثلاث JOINs على جدول قد يحوي ملايين الصفوف، مع فرز على نص غير مفهرس.</p>
+<h4>سلّم الحلول من الأرخص للأشمل</h4>
+<ol>
+<li><strong>حوّل ما يمكن إلى Taxonomy.</strong> الفلترة بالتصنيفات تمر على جداول مفهرسة بأعداد صحيحة — أسرع بمراتب. أي حقل تفلتر به ولا تخزّن فيه قيمة فريدة هو مرشح للتحويل.</li>
+<li><strong>قلّل النطاق:</strong> <code>'fields' => 'ids'</code>, و<code>'no_found_rows' => true</code> عند عدم الحاجة للترقيم، و<code>update_post_meta_cache</code> = false.</li>
+<li><strong>كاش النتيجة</strong> في Transient يُبطَل عند <code>save_post</code> للنوع المعني.</li>
+<li><strong>جدول مسطّح مخصص</strong> (Lookup table) يُحدَّث عند الحفظ — نفس ما فعلته ووكومرس بجدول <code>wc_product_meta_lookup</code>.</li>
+<li><strong>محرك بحث خارجي</strong> (Elasticsearch / Meilisearch) عند الفلترة متعددة الأوجه على مئات الآلاف من العناصر.</li>
+</ol>
+<div class="trap note"><p><b>فخ صامت:</b> <code>'meta_query' => [['key'=>'_price','compare'=>'BETWEEN','value'=>[10,500]]]</code> بدون <code>'type' => 'NUMERIC'</code> يقارن نصياً، فتكون النتيجة خاطئة ومنطقياً غير مفهومة (السعر 90 يقع خارج المدى بينما 100 يقع داخله).</p></div>`},
+
+{n:16,cat:'adv',lvl:2,kw:'multisite network shared users domain mapping',
+q:'متى تنصح بـ Multisite ومتى ترفضها؟',
+a:`<h4>نعم للـ Multisite عندما</h4>
+<ul>
+<li>مواقع متشابهة البنية بإدارة مركزية واحدة: فروع شركة، جامعة بكلياتها، شبكة مدونات.</li>
+<li>تريد إدارة موحّدة للثيمات والإضافات والتحديثات.</li>
+<li>هناك مشاركة منطقية للمستخدمين عبر المواقع.</li>
+</ul>
+<h4>لا للـ Multisite عندما</h4>
+<ul>
+<li>العملاء مستقلون تجارياً — نقطة فشل واحدة تُسقط الجميع، والنسخ الاحتياطي والاستعادة لموقع واحد يصبح عملية مؤلمة.</li>
+<li>احتياجات الإضافات مختلفة جذرياً (متجر + منصة تعليم + موقع تعريفي).</li>
+<li>يحتاج كل عميل صلاحية تثبيت إضافاته — في الشبكة هذه صلاحية Super Admin على <em>كل</em> المواقع.</li>
+</ul>
+<div class="trap note"><p><b>الفخ الأكبر:</b> كل موقع في الشبكة ينشئ مجموعة جداول خاصة به. شبكة بـ 500 موقع تعني عشرات الآلاف من الجداول، وأداء قاعدة البيانات والنسخ الاحتياطي يتدهوران بشدة. فوق ~100 موقع فعّال، فكّر جدياً في مثيلات منفصلة مع أتمتة النشر.</p></div>
+<div class="note"><p><b>سؤال متابعة متوقع:</b> "كيف تشغّل كوداً على كل المواقع؟" الجواب: <code>wp site list --field=url</code> مع حلقة تنفّذ أمر WP-CLI بـ <code>--url=</code> لكل موقع.</p></div>`},
+
+{n:17,cat:'adv',lvl:2,kw:'wpdb prepare custom table dbDelta charset',
+q:'متى تنشئ جدولاً مخصصاً في قاعدة البيانات بدل استخدام CPT و postmeta؟',
+a:`<h4>أنشئ جدولاً مخصصاً عندما</h4>
+<ul>
+<li>البيانات <strong>ليست محتوى</strong>: سجلات، أحداث تتبّع، صفوف انتظار، علاقات كثير-لكثير.</li>
+<li>الحجم كبير مع كتابة متكررة — إضافة ملايين الصفوف إلى <code>wp_posts</code> تُبطئ كل شيء آخر في الموقع.</li>
+<li>تحتاج فهارس مركّبة وقيود واستعلامات تجميعية حقيقية.</li>
+</ul>
+<h4>ابقَ على CPT عندما</h4>
+<p>تحتاج المحرر، المراجعات، الصلاحيات، حالات النشر، الروابط الدائمة، REST، والبحث. إعادة بناء هذه المنظومة يدوياً هي إهدار لأسابيع.</p>
+<pre><code>global $wpdb;
+$table = $wpdb->prefix . 'agency_events';
+$charset = $wpdb->get_charset_collate();
+
+require_once ABSPATH.'wp-admin/includes/upgrade.php';
+dbDelta("CREATE TABLE $table (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
+  event VARCHAR(60) NOT NULL,
+  created_at DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  KEY user_event (user_id, event),
+  KEY created_at (created_at)
+) $charset;");
+
+// الاستعلام دائماً عبر prepare
+$rows = $wpdb->get_results($wpdb->prepare(
+  "SELECT event, COUNT(*) c FROM $table WHERE user_id = %d GROUP BY event", $uid
+));</code></pre>
+<div class="trap note"><p><b>أخطاء dbDelta:</b> حسّاسة بشكل غريب — مسافتان بعد <code>PRIMARY KEY</code>، كلمة <code>KEY</code> لا <code>INDEX</code>، وكل حقل في سطر مستقل. وخزّن رقم إصدار المخطط في option لتشغيل الترقيات لاحقاً.</p></div>`},
+
+{n:18,cat:'adv',lvl:3,kw:'wp-cli automation deploy git composer ci',
+q:'ما شكل سير عمل النشر (Deployment) الاحترافي لمشروع ووردبريس؟',
+a:`<h4>المبدأ الحاكم</h4>
+<p><strong>الكود يُنشر من Git، والمحتوى يبقى في القاعدة.</strong> اتجاه واحد فقط: من المحلي إلى الإنتاج للكود، ومن الإنتاج إلى المحلي للقاعدة.</p>
+<h4>البنية</h4>
+<ul>
+<li><strong>Composer يدير كل شيء</strong>: النواة نفسها والإضافات عبر مستودع WPackagist. لا شيء يُرفع بالـ FTP.</li>
+<li><code>.gitignore</code> يستبعد <code>wp-content/uploads</code> و<code>vendor</code> و<code>node_modules</code> وملفات البيئة.</li>
+<li>الأسرار في متغيرات بيئة (<code>.env</code>) وليست في <code>wp-config.php</code> المُتتبّع.</li>
+<li>فروع: <code>main</code> = إنتاج، <code>develop</code> = staging، فرع لكل ميزة مع Pull Request إجباري.</li>
+</ul>
+<h4>خط الأنابيب عند الدمج</h4>
+<ol>
+<li>فحوصات: PHPCS بمعايير ووردبريس، PHPStan، ثم اختبارات الوحدة.</li>
+<li>بناء الأصول: <code>npm ci && npm run build</code>.</li>
+<li><code>composer install --no-dev --optimize-autoloader</code>.</li>
+<li>نشر ذرّي: مجلد إصدار جديد ثم تبديل الرابط الرمزي — يجعل التراجع فورياً.</li>
+<li>ما بعد النشر: <code>wp core update-db</code>, <code>wp cache flush</code>, فحص صحة سريع.</li>
+</ol>
+<div class="note"><p><b>الاعتراض المتوقع:</b> "لكن العميل يثبّت إضافات من اللوحة." الحل الواقعي: عطّل تعديل الملفات (<code>DISALLOW_FILE_EDIT</code>) واتفق على أن تركيب الإضافات يمر عبرك — أو اقبل الوضع صراحةً واعتمد نمطاً مختلطاً بدل ادّعاء انضباط غير موجود.</p></div>`}
+);
+Q.push(
+{n:19,cat:'perf',lvl:2,kw:'core web vitals lcp inp cls ttfb',
+q:'اشرح Core Web Vitals الثلاثة، وما الإجراء العملي لتحسين كل منها على ووردبريس.',
+a:`<h4>LCP — أكبر عنصر مرئي (الهدف أقل من 2.5 ثانية)</h4>
+<p>يقيس متى ظهر أضخم عنصر في الشاشة الأولى (عادةً صورة البطل أو عنوان كبير). ينقسم إلى: زمن الخادم (TTFB) + تحميل المورد + وقت العرض.</p>
+<ul>
+<li><code>fetchpriority="high"</code> على صورة البطل، مع <strong>منع</strong> التحميل الكسول عنها (خطأ شائع في إضافات التحسين).</li>
+<li>خفض TTFB: كاش صفحات كامل + PHP 8.3 + Object Cache.</li>
+<li><code>preconnect</code> لنطاقات الخطوط، وتفضيل استضافة الخطوط ذاتياً.</li>
+</ul>
+<h4>INP — الاستجابة للتفاعل (الهدف أقل من 200 مللي ثانية)</h4>
+<p>حلّ محل FID عام 2024، وهو أصعب لأنه يقيس <em>كل</em> تفاعل خلال الزيارة لا الأول فقط. السبب الأول لسوئه: جافاسكربت الطرف الثالث ومنطق الإضافات الثقيل الذي يحجب الخيط الرئيسي.</p>
+<ul>
+<li>احذف الإضافات المتراكمة، وأجّل السكربتات غير الحرجة.</li>
+<li>قسّم المهام الطويلة، وأزل مستمعي الأحداث المكلفة على scroll و input.</li>
+<li>راجع مديري الوسوم — حاوية GTM منتفخة تدمّر INP وحدها.</li>
+</ul>
+<h4>CLS — الإزاحة البصرية (الهدف أقل من 0.1)</h4>
+<ul>
+<li>سمات <code>width</code> و<code>height</code> على كل صورة (أو <code>aspect-ratio</code>).</li>
+<li>احجز مساحة الإعلانات والبانرات قبل تحميلها.</li>
+<li><code>font-display: swap</code> مع خط احتياطي مطابق في المقاييس لتقليل قفزة النص.</li>
+</ul>
+<div class="trap note"><p><b>فخ يقع فيه كثيرون:</b> الاعتماد على درجة Lighthouse. جوجل تستخدم <strong>بيانات الحقل</strong> (CrUX) من مستخدمين حقيقيين، لا نتيجة المختبر. راجع تقرير تجربة الصفحة في Search Console، وقس بالنسبة المئوية 75 لا بالمتوسط.</p></div>`},
+
+{n:20,cat:'perf',lvl:2,kw:'cache page object opcode cdn browser varnish redis',
+q:'اذكر طبقات الكاش الخمس وترتيب أهميتها. وما الذي لا يجب تخزينه أبداً؟',
+a:`<h4>الطبقات من الأقرب للزائر للأبعد</h4>
+<ol>
+<li><strong>كاش المتصفح</strong> — ترويسات <code>Cache-Control</code> للأصول الثابتة (سنة كاملة مع بصمة في اسم الملف).</li>
+<li><strong>CDN / الحافة</strong> — يقدّم HTML وأصولاً من أقرب نقطة جغرافياً. الأثر الأكبر لجمهور موزّع.</li>
+<li><strong>كاش الصفحات</strong> — HTML جاهز يتخطى PHP والقاعدة كلياً. أكبر مكسب منفرد في TTFB.</li>
+<li><strong>Object Cache</strong> (Redis) — يخزّن نتائج الاستعلامات، وينفع الصفحات <em>غير</em> القابلة للكاش: السلة، الحساب، اللوحة.</li>
+<li><strong>OPcache</strong> — يخزّن PHP المُصرَّف في الذاكرة. إعداد خادم، لكن غيابه يعني إعادة تصريف كل ملف في كل طلب.</li>
+</ol>
+<h4>ما يجب استثناؤه دائماً</h4>
+<ul>
+<li>صفحات السلة والدفع والحساب وتتبّع الطلب.</li>
+<li>أي صفحة لمستخدم مسجّل الدخول (أو استخدم كاش منفصل حسب الدور).</li>
+<li>روابط تحمل معاملات UTM يجب توحيدها لا فصلها، وإلا تشظّى الكاش وانخفضت نسبة الإصابة.</li>
+<li>نقاط REST/AJAX التي تعيد بيانات شخصية.</li>
+</ul>
+<div class="trap note"><p><b>كارثة حقيقية:</b> تخزين صفحة تحوي <code>nonce</code>. الـ nonce صالح 24 ساعة، فتُقدَّم لآلاف المستخدمين نسخة بـ nonce منتهٍ أو مملوك لجلسة أخرى، فتفشل النماذج بصمت. الحل: توليد الـ nonce عبر طلب AJAX منفصل غير مُخزَّن.</p></div>`},
+
+{n:21,cat:'perf',lvl:3,kw:'ttfb slow hosting plugin bloat query monitor profiling',
+q:'موقع درجته في PageSpeed 95 لكن العميل يقول إنه بطيء. كيف تشخّص؟',
+a:`<p>هذا سيناريو حقيقي جداً، والسبب أن الدرجة تقيس صفحة واحدة على شبكة محاكاة، بينما شكوى العميل غالباً عن <strong>لوحة التحكم أو المسار المُسجَّل الدخول أو صفحة معينة</strong>.</p>
+<h4>ترتيب التشخيص</h4>
+<ol>
+<li><strong>حدّد "بطيء" أين بالضبط:</strong> الواجهة أم اللوحة؟ صفحة واحدة أم الكل؟ لكل الزوار أم للمسجّلين فقط؟ وقت محدد من اليوم؟</li>
+<li><strong>قِس TTFB خاماً</strong> بـ <code>curl -w</code> مع تجاوز الكاش. لو TTFB مرتفع فالمشكلة في الخادم أو PHP لا في الواجهة الأمامية.</li>
+<li><strong>Query Monitor</strong> على المسار البطيء: عدد الاستعلامات، أبطأها، وأي إضافة تستهلك الوقت. أكثر من 150 استعلاماً في الصفحة إشارة حمراء.</li>
+<li><strong>افحص autoloaded options</strong> — أي شيء فوق 800 كيلوبايت مشكلة.</li>
+<li><strong>طلبات HTTP خارجية متزامنة</strong> داخل دورة الطلب: ترخيص إضافة يستدعي خادمه في كل تحميل صفحة يضيف ثانية كاملة صامتة.</li>
+<li><strong>الاستضافة:</strong> استضافة مشتركة بجيران صاخبين تنتج تبايناً هائلاً — قِس عشر مرات لا مرة.</li>
+</ol>
+<pre><code># قياس مكوّنات الزمن الحقيقية
+curl -o /dev/null -s -w \\
+ "dns:%{time_namelookup} connect:%{time_connect} ttfb:%{time_starttransfer} total:%{time_total}\\n" \\
+ "https://site.sa/?nocache=1"</code></pre>
+<div class="note"><p><b>عبارة تُكسبك المقابلة:</b> "أول خطوة عندي هي تحويل الشكوى المبهمة إلى رقم قابل للقياس على مسار محدد. بدون ذلك أنا أخمّن، والتخمين مكلف."</p></div>`},
+
+{n:22,cat:'perf',lvl:1,kw:'images webp avif srcset lazy loading compression',
+q:'اشرح استراتيجية تحسين الصور الكاملة على موقع ووردبريس.',
+a:`<h4>خمس طبقات متتابعة</h4>
+<ol>
+<li><strong>الأبعاد الصحيحة أولاً:</strong> لا ترفع صورة 4000 بكسل لحاوية 800. عرّف أحجاماً مناسبة بـ <code>add_image_size()</code> وامنع توليد أحجام لا تستخدمها.</li>
+<li><strong>الصيغة الحديثة:</strong> WebP يوفر 25–35% مقابل JPEG، وAVIF يصل إلى 50% لكن بتكلفة ترميز أعلى. قدّمهما مع بديل عبر <code>&lt;picture&gt;</code> أو عبر CDN يتفاوض حسب المتصفح.</li>
+<li><strong>الصور المتجاوبة:</strong> ووردبريس يولّد <code>srcset</code> تلقائياً — لكن اضبط <code>sizes</code> يدوياً ليطابق تخطيطك، وإلا حمّل المتصفح صورة أكبر مما يحتاج.</li>
+<li><strong>التحميل الكسول:</strong> افتراضي منذ الإصدار 5.5، لكن <strong>استثنِ صورة البطل</strong> لأن تكسيلها يدمّر LCP مباشرة.</li>
+<li><strong>التسليم:</strong> CDN + ترويسات كاش طويلة + <code>decoding="async"</code>.</li>
+</ol>
+<pre><code>// استثناء أول صورة من التحميل الكسول ورفع أولويتها
+add_filter('wp_get_attachment_image_attributes', function ($attr, $att, $size) {
+  static $first = true;
+  if ($first && !is_admin()) {
+    $attr['loading']       = 'eager';
+    $attr['fetchpriority'] = 'high';
+    $first = false;
+  }
+  return $attr;
+}, 10, 3);</code></pre>
+<div class="note"><p><b>لا تنسَ النص البديل:</b> ليس للـ SEO فقط — هو متطلب وصولية، ومع بحث الصور والبحث المدعوم بالذكاء الاصطناعي أصبح إشارة سياق حقيقية. اكتب وصفاً للمحتوى لا حشواً للكلمات.</p></div>`},
+
+{n:23,cat:'perf',lvl:2,kw:'render blocking critical css defer async preload font',
+q:'ما معنى Render-Blocking؟ وكيف تعالجه بدون أن تكسر الموقع؟',
+a:`<p>المتصفح لا يستطيع رسم الصفحة قبل بناء شجرتي DOM وCSSOM. أي <code>&lt;link rel="stylesheet"&gt;</code> في الرأس، وأي <code>&lt;script&gt;</code> بلا <code>defer</code> أو <code>async</code>، يوقف هذا البناء.</p>
+<h4>العلاج بالترتيب</h4>
+<ul>
+<li><strong>CSS الحرج:</strong> استخرج أنماط الشاشة الأولى وضعها مضمّنة في <code>&lt;head&gt;</code>، وحمّل البقية بشكل غير حاجب عبر <code>media="print"</code> ثم تبديلها بـ onload.</li>
+<li><strong>defer مقابل async:</strong> استخدم <code>defer</code> افتراضياً — ينفّذ بعد تحليل الصفحة ويحافظ على ترتيب التبعيات. <code>async</code> فقط للسكربتات المستقلة تماماً (التحليلات)، لأن ترتيب تنفيذها غير مضمون.</li>
+<li><strong>الخطوط:</strong> استضِفها ذاتياً بصيغة woff2، مع <code>preload</code> للخط الحرج فقط و<code>font-display: swap</code>. تحميل ستة أوزان من Google Fonts خطأ كلاسيكي.</li>
+<li><strong>احذف ما لا تستخدمه:</strong> إضافة تحمّل ملف CSS بحجم 200 كيلوبايت في كل صفحة من أجل نموذج موجود في صفحة واحدة — قيّد التحميل شرطياً.</li>
+</ul>
+<div class="trap note"><p><b>الفخ:</b> تفعيل "تأجيل كل الجافاسكربت" في إضافة تحسين ثم اكتشاف أن السلايدر أو نموذج الدفع توقف. القاعدة: أي تغيير في تحميل الأصول يُختبر على <em>مسار التحويل الكامل</em> لا على الرئيسية فقط.</p></div>`},
+
+{n:24,cat:'perf',lvl:3,kw:'database optimization revisions transients cleanup index',
+q:'كيف تنظّف وتحسّن قاعدة بيانات ووردبريس بعد سنوات من التشغيل؟',
+a:`<h4>مصادر الانتفاخ الخمسة</h4>
+<ol>
+<li><strong>المراجعات (Revisions):</strong> مقال معدّل 60 مرة = 60 صفاً في <code>wp_posts</code> مع بيانات meta لكل منها. حدّدها في wp-config: <code>define('WP_POST_REVISIONS', 5);</code></li>
+<li><strong>Transients منتهية</strong> لا تُحذف تلقائياً إلا عند طلبها. نظّفها دورياً.</li>
+<li><strong>Meta يتيمة</strong> لمقالات أو مستخدمين محذوفين.</li>
+<li><strong>بقايا إضافات محذوفة</strong> — جداول وخيارات لم يُنظّفها المطوّر عند إلغاء التثبيت.</li>
+<li><strong>جداول السجلات</strong>: سجل بريد، سجل أمان، إحصاءات — تنمو بلا حدود بلا سياسة احتفاظ.</li>
+</ol>
+<pre><code># فحص أثقل الخيارات المحمّلة تلقائياً
+wp db query "SELECT option_name, ROUND(LENGTH(option_value)/1024,1) kb
+FROM wp_options WHERE autoload='yes'
+ORDER BY LENGTH(option_value) DESC LIMIT 20;"
+
+wp transient delete --expired
+wp db optimize</code></pre>
+<h4>ما بعد التنظيف</h4>
+<p>راجع الفهارس على الجداول المخصصة، وفعّل Object Cache دائماً، واضبط سياسة احتفاظ (مثلاً 90 يوماً) على جداول السجلات كمهمة مجدولة.</p>
+<div class="trap note"><p><b>قاعدة غير قابلة للتفاوض:</b> نسخة احتياطية كاملة قبل أي تنظيف، وتنفيذ على Staging أولاً. رأيت مواقع فقدت بيانات ووكومرس كاملة بسبب إضافة "تنظيف" حذفت meta اعتبرتها يتيمة وهي ليست كذلك.</p></div>`},
+
+{n:25,cat:'sec',lvl:2,kw:'nonce capability sanitize escape validation security',
+q:'ما رباعية الأمان في ووردبريس التي يجب أن تكون في كل نموذج ونقطة نهاية؟',
+a:`<h4>الأربعة معاً — وليس بديلاً عن بعضها</h4>
+<ol>
+<li><strong>Nonce</strong> = حماية من CSRF. يثبت أن الطلب جاء من نموذجك. <em>لا يثبت</em> أن المستخدم مخوّل.</li>
+<li><strong>Capability check</strong> = التفويض. <code>current_user_can('edit_post', $id)</code>. هذه هي الحماية الحقيقية.</li>
+<li><strong>Sanitize on input</strong> = تنظيف ما يدخل قاعدة البيانات.</li>
+<li><strong>Escape on output</strong> = تأمين ما يخرج للمتصفح، حسب السياق.</li>
+</ol>
+<pre><code>add_action('admin_post_save_agency', function () {
+  // 1) CSRF
+  check_admin_referer('agency_save', 'agency_nonce');
+  // 2) التفويض
+  if (!current_user_can('manage_options')) wp_die(__('غير مصرّح'), 403);
+  // 3) التنظيف
+  $email = sanitize_email($_POST['email'] ?? '');
+  $title = sanitize_text_field(wp_unslash($_POST['title'] ?? ''));
+  if (!is_email($email)) wp_die('بريد غير صالح');
+  update_option('agency_email', $email);
+  wp_safe_redirect(admin_url('admin.php?page=agency&updated=1'));
+  exit;
+});</code></pre>
+<h4>دوال الإخراج حسب السياق</h4>
+<ul>
+<li>نص داخل HTML: <code>esc_html()</code> • قيمة سمة: <code>esc_attr()</code></li>
+<li>رابط: <code>esc_url()</code> • داخل جافاسكربت: <code>esc_js()</code> أو <code>wp_json_encode()</code></li>
+<li>HTML مسموح محدود: <code>wp_kses_post()</code></li>
+</ul>
+<div class="trap note"><p><b>الخطأ الشائع رقم واحد:</b> الاكتفاء بالـ nonce والظن أنه مصادقة. أي مستخدم مسجّل يستطيع الحصول على nonce صالح من صفحته — بدون فحص الصلاحية يستطيع مشترك عادي تنفيذ إجراء إداري. هذه ثغرة تصعيد صلاحيات كلاسيكية.</p></div>`},
+
+{n:26,cat:'sec',lvl:2,kw:'sql injection wpdb prepare placeholder',
+q:'كيف تحمي من حقن SQL في ووردبريس؟ وما الحالات التي لا يغطيها prepare؟',
+a:`<p>القاعدة: أي متغير يدخل استعلاماً يمر عبر <code>$wpdb->prepare()</code> بمُعرِّف نائب — لا بالتصريف اليدوي ولا بعلامات اقتباس مكتوبة.</p>
+<pre><code>// خاطئ — حقن مباشر
+$wpdb->get_results("SELECT * FROM $t WHERE email = '{$_GET['e']}'");
+
+// صحيح
+$wpdb->get_results($wpdb->prepare(
+  "SELECT * FROM $t WHERE email = %s AND status = %d", $email, 1
+));
+
+// LIKE يحتاج معالجة خاصة
+$like = '%' . $wpdb->esc_like($term) . '%';
+$wpdb->prepare("SELECT * FROM $t WHERE name LIKE %s", $like);</code></pre>
+<h4>ما لا يستطيع prepare حمايته</h4>
+<p>المُعرِّفات النائبة تعمل مع <em>القيم</em> فقط — لا مع <strong>أسماء الجداول والأعمدة واتجاه الفرز</strong>. لا يمكنك كتابة <code>ORDER BY %s</code>.</p>
+<pre><code>// الحل: قائمة بيضاء صارمة
+$allowed = ['created_at', 'name', 'total'];
+$orderby = in_array($_GET['orderby'] ?? '', $allowed, true) ? $_GET['orderby'] : 'created_at';
+$order   = ($_GET['order'] ?? '') === 'ASC' ? 'ASC' : 'DESC';
+$sql = "SELECT * FROM $t ORDER BY $orderby $order LIMIT %d";</code></pre>
+<div class="note"><p><b>عادة جيدة:</b> شغّل PHPCS مع مجموعة WordPress-Extra — تلتقط الاستعلامات غير المُحضَّرة والإخراج غير المُهرَّب آلياً قبل الوصول لمراجعة الكود.</p></div>`},
+
+{n:27,cat:'sec',lvl:2,kw:'hardening file permissions disallow file edit 2fa waf headers',
+q:'اذكر خطة تحصين عملية لموقع ووردبريس إنتاجي.',
+a:`<h4>طبقة الوصول</h4>
+<ul>
+<li>مصادقة ثنائية إجبارية لكل من له صلاحية Editor فأعلى.</li>
+<li>مبدأ الحد الأدنى من الصلاحيات — كاتب المحتوى لا يحتاج دور Administrator.</li>
+<li>تعطيل تعديل الملفات: <code>define('DISALLOW_FILE_EDIT', true);</code></li>
+<li>حد لمحاولات الدخول + التقاط لـ XML-RPC أو تعطيله إن لم يُستخدم.</li>
+</ul>
+<h4>طبقة الملفات</h4>
+<ul>
+<li>الأذونات: المجلدات 755، الملفات 644، و<code>wp-config.php</code> 600. لا 777 أبداً.</li>
+<li>منع تنفيذ PHP داخل <code>uploads</code> — هذا يوقف أشهر مسار لرفع الشل.</li>
+<li>مالك الملفات ليس مستخدم خادم الويب حيثما أمكن.</li>
+</ul>
+<h4>طبقة الشبكة والترويسات</h4>
+<ul>
+<li>WAF على مستوى الحافة (Cloudflare أو ما يعادله) + حد معدل على <code>wp-login.php</code>.</li>
+<li>ترويسات: <code>Strict-Transport-Security</code>، <code>X-Content-Type-Options</code>، <code>Referrer-Policy</code>، و<code>Content-Security-Policy</code> بعد اختبار.</li>
+</ul>
+<h4>طبقة التشغيل</h4>
+<ul>
+<li>تحديثات أمنية تلقائية للنواة، ومراجعة أسبوعية للإضافات.</li>
+<li>مراقبة سلامة الملفات وتنبيه عند التغيير.</li>
+<li>نسخ احتياطي <strong>خارج الخادم</strong> مع اختبار استعادة فعلي — النسخة غير المُختبَرة ليست نسخة.</li>
+</ul>
+<div class="trap note"><p><b>حقيقة تُغفَل:</b> أغلب الاختراقات لا تأتي من ثغرة في النواة، بل من إضافة مهجورة أو ثيم نال (Nulled) أو كلمة مرور معاد استخدامها. جرد الإضافات وحذف غير المستخدم منها أعلى عائداً أمنياً من معظم الإعدادات.</p></div>`},
+
+{n:28,cat:'sec',lvl:3,kw:'hacked incident response malware cleanup rotate keys',
+q:'اكتشفت أن موقع عميل مُخترق. ما خطة الاستجابة بالترتيب؟',
+a:`<h4>1) احتواء</h4>
+<ul>
+<li>أخذ لقطة كاملة (ملفات + قاعدة) <em>قبل</em> أي تنظيف — هذه أدلتك.</li>
+<li>وضع صيانة أو حجب على مستوى الحافة لوقف الضرر ونشر البرمجية للزوار.</li>
+<li>تدوير كل المفاتيح: كلمات مرور القاعدة، وأملاح المصادقة في wp-config، ومفاتيح API، وحسابات FTP/SSH.</li>
+</ul>
+<h4>2) تحديد وتحقيق</h4>
+<ul>
+<li>سجلات الوصول: ابحث عن طلبات POST غير معتادة قبل أول ظهور للأعراض.</li>
+<li>ملفات معدّلة حديثاً: <code>find . -type f -mtime -14 -name "*.php"</code></li>
+<li>مستخدمون إداريون مستحدثون، ومهام كرون غريبة، وحقن في <code>wp_options</code> (خاصة <code>siteurl</code> ومحتوى الويدجت).</li>
+<li>حدّد <strong>نقطة الدخول</strong> — التنظيف بدونها يعني عودة الاختراق خلال أيام.</li>
+</ul>
+<h4>3) استئصال</h4>
+<p>لا تنظّف يدوياً إن أمكن. استبدل النواة والثيمات والإضافات بنسخ نظيفة من المصدر، وأبقِ فقط <code>uploads</code> بعد فحصها من ملفات PHP، والقاعدة بعد مراجعتها. الكود المخصص يُستعاد من Git.</p>
+<h4>4) استرداد وتعافٍ</h4>
+<ul>
+<li>طلب مراجعة في Search Console إن كان الموقع مُعلَّماً.</li>
+<li>تحصين كامل (السؤال السابق) + مراقبة مكثفة أسبوعين.</li>
+<li>تقرير مكتوب للعميل: ماذا حدث، كيف، ما تم، وما الذي يمنع التكرار.</li>
+</ul>
+<div class="note"><p><b>الجانب المهني:</b> إن كانت هناك بيانات شخصية للعملاء، فالإفصاح والتزامات حماية البيانات جزء من الخطة لا خيار تجميلي. راجع المتطلبات التنظيمية في سوقك.</p></div>`},
+
+{n:29,cat:'sec',lvl:2,kw:'xss stored reflected escaping kses user input',
+q:'اشرح XSS بأنواعه، وكيف يتسرب إلى مواقع ووردبريس تحديداً.',
+a:`<h4>الأنواع</h4>
+<ul>
+<li><strong>Reflected:</strong> مدخل من الرابط يُعرض فوراً بلا تهريب — مثل صفحة نتائج بحث تطبع <code>$_GET['s']</code> خاماً.</li>
+<li><strong>Stored:</strong> الأخطر. الحمولة تُحفظ في القاعدة (تعليق، حقل مخصص، اسم مستخدم) وتُنفَّذ عند كل مشاهدة — بما فيها مشاهدة المدير للوحة.</li>
+<li><strong>DOM-based:</strong> يحدث في المتصفح عبر جافاسكربت تكتب مدخلاً غير موثوق في <code>innerHTML</code>.</li>
+</ul>
+<h4>أين يتسرّب في ووردبريس</h4>
+<ol>
+<li>طباعة حقول ACF أو post meta مباشرة في القالب بلا <code>esc_html()</code>.</li>
+<li>إعدادات إضافة تُحفَظ بلا تنظيف وتُطبع في صفحة الإعدادات.</li>
+<li>شورت كود يمرّر سمة المستخدم داخل سمة HTML بلا <code>esc_attr()</code>.</li>
+<li>حقول نموذج تواصل تُعرض في رسالة بريد HTML بلا تهريب.</li>
+</ol>
+<pre><code>// خطر
+echo '&lt;a href="'.get_post_meta($id,'link',true).'"&gt;'.get_post_meta($id,'label',true).'&lt;/a&gt;';
+
+// آمن
+printf('&lt;a href="%s"&gt;%s&lt;/a&gt;',
+  esc_url(get_post_meta($id,'link',true)),
+  esc_html(get_post_meta($id,'label',true))
+);</code></pre>
+<div class="note"><p><b>القاعدة الذهبية:</b> هرّب <em>عند الإخراج</em> لا عند الإدخال، لأن دالة التهريب تعتمد على السياق الذي ستُطبع فيه القيمة — ونفس القيمة قد تُطبع في ثلاثة سياقات مختلفة. وللمحتوى الغني استخدم <code>wp_kses_post()</code> لا تمريراً مفتوحاً.</p></div>`}
+);
+Q.push(
+{n:30,cat:'seo',lvl:2,kw:'crawl budget indexation noindex robots sitemap log files',
+q:'ما ميزانية الزحف (Crawl Budget)؟ ومتى تصبح مشكلة فعلية؟',
+a:`<p>هي حاصل ضرب عاملين: <strong>حد معدل الزحف</strong> (ما يتحمله خادمك) × <strong>طلب الزحف</strong> (اهتمام جوجل بمحتواك). موقع بـ 300 صفحة لا يعاني منها إطلاقاً — من يدّعي غير ذلك يبيعك خدمة.</p>
+<h4>متى تصبح مشكلة حقيقية</h4>
+<ul>
+<li>مواقع بعشرات الآلاف من الصفحات (متاجر كبيرة، مواقع تصنيف، عقارات).</li>
+<li>وجود انفجار في المسارات: فلاتر الأوجه تولّد آلاف الروابط بمعاملات مختلفة لنفس المحتوى.</li>
+<li>خادم بطيء يجعل جوجل يخفض معدل زحفه تلقائياً.</li>
+</ul>
+<h4>العلاج بالترتيب</h4>
+<ol>
+<li><strong>احسم بنية المعاملات:</strong> امنع زحف تركيبات الفلاتر عبر robots.txt أو اجعلها روابط غير قابلة للزحف، ووحّد عبر canonical.</li>
+<li><strong>احذف بدل أن تخفي:</strong> صفحة بلا قيمة تُحذف وتُعاد توجيهها، لا تُترك بـ noindex إلى الأبد.</li>
+<li><strong>خريطة موقع نظيفة:</strong> روابط 200 قابلة للفهرسة فقط، مع <code>lastmod</code> صادق.</li>
+<li><strong>ربط داخلي:</strong> الصفحات المهمة على بعد ثلاث نقرات من الرئيسية.</li>
+<li><strong>تحليل سجلات الخادم</strong> — المصدر الوحيد لمعرفة أين يهدر Googlebot وقته فعلاً.</li>
+</ol>
+<div class="trap note"><p><b>فخ مفاهيمي كلاسيكي:</b> استخدام <code>robots.txt</code> لإزالة صفحة من النتائج. الحظر يمنع <em>الزحف</em> لا <em>الفهرسة</em> — وقد تظل الصفحة في النتائج بلا وصف. الصحيح: اسمح بالزحف وضع <code>noindex</code>، أو استخدم أداة الإزالة للحالات العاجلة.</p></div>`},
+
+{n:31,cat:'seo',lvl:2,kw:'canonical duplicate content pagination archives tags',
+q:'ووردبريس يولّد محتوى مكرراً بطبيعته. ما مصادره وكيف تعالجها؟',
+a:`<h4>المصادر السبعة</h4>
+<ol>
+<li><strong>أرشيفات الوسوم</strong> بوسم واحد فيه مقال واحد — قيمة صفر.</li>
+<li><strong>أرشيفات التاريخ والمؤلف</strong> على مدونة بكاتب واحد.</li>
+<li><strong>صفحات الترقيم</strong> والمحتوى المقتطع المتكرر.</li>
+<li><strong>مرفقات الوسائط</strong> — كل صورة تولّد صفحة مستقلة.</li>
+<li><strong>معاملات الروابط</strong> من الفلاتر والتتبّع.</li>
+<li><strong>نسخ www وغير www، وhttp وhttps</strong> غير الموحّدة.</li>
+<li><strong>وصف المنتج المنسوخ من المورّد</strong> في المتاجر — أشهرها على الإطلاق.</li>
+</ol>
+<h4>العلاج</h4>
+<ul>
+<li>Canonical ذاتي على كل صفحة، مع canonical لصفحة المنتج الأصلية من نسخ الفلاتر.</li>
+<li>noindex لأرشيفات لا تُقدَّم قيمة فيها — وإبقاء ما تبنيه فعلاً كصفحة هبوط.</li>
+<li>إعادة توجيه صفحات المرفقات إلى المقال الأب.</li>
+<li>توحيد إصدار واحد للنطاق بإعادة توجيه 301 على مستوى الخادم.</li>
+<li>كتابة وصف أصلي للمنتجات — ولو فقرة واحدة تضيف معلومة لا يملكها المنافس.</li>
+</ul>
+<div class="note"><p><b>مهم:</b> منذ إلغاء دعم <code>rel=prev/next</code>، تُعامل صفحات الترقيم كصفحات مستقلة. اترك canonical ذاتياً على كل صفحة ترقيم — لا توجّهها كلها للصفحة الأولى، فهذا يخفي المحتوى العميق عن الفهرسة.</p></div>`},
+
+{n:32,cat:'seo',lvl:2,kw:'schema structured data json-ld rich results product faq',
+q:'ما فائدة Schema فعلياً؟ وأي الأنواع تعطي عائداً حقيقياً؟',
+a:`<p>البيانات المنظّمة لا ترفع الترتيب مباشرة — وظيفتها <strong>إزالة الغموض عن المحتوى</strong> وفتح الباب للنتائج الغنية التي ترفع نسبة النقر. وفي عصر البحث المدعوم بالذكاء الاصطناعي أصبحت طريقة موثوقة لتغذية الآلة بحقائق منظمة.</p>
+<h4>الأنواع ذات العائد الحقيقي</h4>
+<ul>
+<li><strong>Product + Offer + AggregateRating</strong> — سعر وتوفر ونجوم في النتيجة. أعلى أثر مباشر على النقر في التجارة الإلكترونية.</li>
+<li><strong>LocalBusiness</strong> — حاسم للبحث المحلي مع بيانات موحّدة مع خرائط جوجل.</li>
+<li><strong>Article + Author</strong> — يدعم إشارات الخبرة والمصداقية.</li>
+<li><strong>BreadcrumbList</strong> — يحسّن عرض المسار في النتيجة.</li>
+<li><strong>Organization</strong> على الرئيسية — يربط الكيان بحساباتك ولوحة المعرفة.</li>
+</ul>
+<h4>ما لم يعد يعطي عائداً بصرياً</h4>
+<p>FAQ وHowTo قُلّص عرضهما بشدة منذ 2023. لا تزال مفيدة كسياق دلالي، لكن لا تعد العميل بنتائج غنية منهما.</p>
+<div class="trap note"><p><b>الفخ الذي يستدعي عقوبة يدوية:</b> ترميز بيانات غير موجودة على الصفحة — تقييمات وهمية، أو ترميز مراجعات للشركة نفسها على صفحتها. جوجل تعتبره سبام بيانات منظمة وقد تُسقط كل النتائج الغنية للنطاق.</p></div>
+<div class="note"><p><b>عملياً:</b> استخدم JSON-LD في الرأس (لا Microdata المتشابك مع HTML)، واختبر عبر أداة نتائج البحث الغنية، وتابع تقرير التحسينات في Search Console.</p></div>`},
+
+{n:33,cat:'seo',lvl:3,kw:'eeat authority author trust content quality helpful',
+q:'ماذا تعني E-E-A-T عملياً؟ وكيف تترجمها إلى مهام على موقع فعلي؟',
+a:`<p>الاختصار يعني الخبرة المعاشة، الخبرة التخصصية، السلطة، والجدارة بالثقة. ليست عامل ترتيب واحداً، بل <strong>إطار يصف ما تحاول أنظمة التقييم قياسه</strong> — خصوصاً في مواضيع "المال أو الحياة" (صحة، مال، قانون).</p>
+<h4>الترجمة إلى مهام قابلة للتنفيذ</h4>
+<ul>
+<li><strong>الخبرة المعاشة:</strong> صور أصلية، تجربة فعلية للمنتج، أرقام من حسابك أنت، دراسة حالة بأسماء وتواريخ. هذا ما لا يستطيع الذكاء الاصطناعي تزييفه — وهو أقوى ورقة تفريق اليوم.</li>
+<li><strong>التخصص:</strong> صفحة مؤلف حقيقية بمؤهلات وروابط مهنية، وربطها بالمقالات عبر schema.</li>
+<li><strong>السلطة:</strong> ذكر العلامة في مصادر مستقلة، مقابلات، مساهمات في مواقع القطاع. الاستشهاد بالعلامة أهم من الرابط أحياناً.</li>
+<li><strong>الثقة:</strong> بيانات تواصل واضحة، سياسات مكتوبة، سجل تجاري، مراجعات حقيقية، تحديث صريح للمحتوى بتاريخ حقيقي.</li>
+</ul>
+<div class="note"><p><b>سؤال متابعة شائع:</b> "هل يضر المحتوى المولَّد بالذكاء الاصطناعي؟" الجواب الدقيق: جوجل تقيّم <em>الجودة والقيمة</em> لا طريقة الإنتاج. المحتوى المولَّد بكميات بلا مراجعة ولا خبرة مضافة هو المستهدف — لأنه بطبيعته عديم القيمة، لا لأنه آلي.</p></div>`},
+
+{n:34,cat:'seo',lvl:2,kw:'search intent keyword mapping serp analysis cannibalization',
+q:'كيف تبني خريطة كلمات مفتاحية تعتمد على نية البحث؟ وما هو التنافس الداخلي؟',
+a:`<h4>خطوات العمل</h4>
+<ol>
+<li><strong>اجمع</strong> من مصادر متعددة: أدوات الكلمات، صندوق البحث الداخلي في الموقع، أسئلة العملاء الحقيقية، وSearch Console لما تظهر فيه بالفعل.</li>
+<li><strong>صنّف بالنية</strong> — وهذا يُقرأ من صفحة النتائج لا من التخمين: إن كانت النتائج كلها صفحات تصنيف فالنية تجارية، وإن كانت مقالات فالنية معلوماتية. أنواع النية: معلوماتية، ملاحية، بحث تجاري، معاملاتية.</li>
+<li><strong>جمّع في عناقيد</strong> حول موضوع أساسي، وليس حول كل صيغة لغوية.</li>
+<li><strong>عيّن صفحة واحدة لكل عنقود</strong> — قاعدة صارمة: كلمة واحدة = صفحة واحدة.</li>
+<li><strong>خطّط المحتوى</strong> بما يطابق تنسيق النتائج المرتّبة (دليل، مقارنة، صفحة منتج، أداة).</li>
+</ol>
+<h4>التنافس الداخلي (Cannibalization)</h4>
+<p>عندما تستهدف صفحتان أو أكثر نفس النية، تتذبذب ترتيباتهما وتتشتت الروابط والإشارات فلا ترتّب أي منهما جيداً. اكتشفه من Search Console: نفس الاستعلام يجلب صفحات مختلفة عبر الأشهر.</p>
+<p><strong>العلاج:</strong> ادمج الصفحات الأضعف في الأقوى مع 301، أو أعد صياغة النية لتصبح كل صفحة مختلفة فعلاً، أو احذف ما لا قيمة له.</p>
+<div class="trap note"><p><b>الفخ في المحتوى العربي:</b> إنشاء صفحة لكل صيغة إملائية أو لهجة لنفس النية (شركة تسويق / شركه تسويق / افضل شركة تسويق). محركات البحث تفهمها كنية واحدة، وأنت تصنع تنافساً داخلياً بيديك.</p></div>`},
+
+{n:35,cat:'seo',lvl:2,kw:'internal linking topic cluster pillar architecture anchor',
+q:'اشرح بنية العناقيد الموضوعية والربط الداخلي، ولماذا هي أقوى من بناء الروابط أحياناً؟',
+a:`<h4>البنية</h4>
+<p>صفحة <strong>ركيزة</strong> شاملة تغطي الموضوع الأم، ومجموعة صفحات <strong>عنقودية</strong> تعالج جوانب فرعية بعمق، وربط ثنائي الاتجاه بينها. النتيجة: إشارة واضحة بأنك تغطي المجال بالكامل، وتوزيع منظم لسلطة الصفحات داخلياً.</p>
+<h4>قواعد الربط الداخلي التي تصنع الفرق</h4>
+<ul>
+<li><strong>نص الرابط وصفي</strong> ومتنوّع طبيعياً — لا "اضغط هنا" ولا تكرار حرفي لنفس العبارة عشرات المرات.</li>
+<li><strong>روابط في متن المحتوى</strong> أثقل وزناً من روابط التذييل والقوائم المتكررة.</li>
+<li><strong>حدّ عمق النقرات:</strong> أي صفحة مهمة على بعد ثلاث نقرات من الرئيسية.</li>
+<li><strong>عالج الصفحات اليتيمة</strong> — صفحة بلا روابط داخلية غالباً لن تُزحف بانتظام.</li>
+<li><strong>ادفع السلطة عمداً:</strong> صفحاتك الأقوى بالروابط الخارجية يجب أن تربط لصفحاتك التجارية.</li>
+</ul>
+<div class="note"><p><b>لماذا قد تسبق بناء الروابط؟</b> لأنها تحت سيطرتك بالكامل، مجانية، وأثرها فوري نسبياً. في أغلب مواقع الشركات هناك مكسب ترتيبي حقيقي مدفون في ربط داخلي مهمَل — قبل إنفاق ريال واحد على روابط خارجية.</p></div>
+<div class="trap note"><p><b>الفخ:</b> إضافات الربط الداخلي التلقائي التي تستبدل كل ذكر لكلمة برابط. النتيجة صفحات مليئة بروابط بلا معنى تضر تجربة القارئ وتُقرأ كتلاعب.</p></div>`},
+
+{n:36,cat:'seo',lvl:3,kw:'technical audit crawl log rendering javascript indexing',
+q:'كيف تنفّذ تدقيقاً تقنياً شاملاً؟ اذكر الترتيب والأدوات ومخرجات التسليم.',
+a:`<h4>الترتيب المنهجي</h4>
+<ol>
+<li><strong>الزحف الكامل</strong> (Screaming Frog / Sitebulb) مع تفعيل عرض جافاسكربت: أكواد الحالة، سلاسل التوجيه، العناوين والأوصاف المكررة، عمق النقرات، الصفحات اليتيمة.</li>
+<li><strong>مقارنة بثلاثة مصادر:</strong> خريطة الموقع، بيانات Search Console، وسجلات الخادم. الفجوات بينها تكشف المشاكل الحقيقية.</li>
+<li><strong>الفهرسة:</strong> تقرير تغطية الصفحات — لماذا استُبعدت الصفحات وأي فئة تنمو.</li>
+<li><strong>العرض (Rendering):</strong> هل يعتمد المحتوى الأساسي على جافاسكربت؟ افحص عبر أداة فحص الرابط المباشر لا عبر مصدر الصفحة فقط.</li>
+<li><strong>الأداء:</strong> بيانات الحقل من تقرير تجربة الصفحة، لا نتيجة المختبر.</li>
+<li><strong>البنية:</strong> الربط الداخلي، الترميز، الروابط الدائمة، التدويل (hreflang) إن وُجد.</li>
+<li><strong>الجوال:</strong> التكافؤ الكامل للمحتوى بين النسختين — الفهرسة تعتمد على نسخة الجوال.</li>
+</ol>
+<h4>مخرجات التسليم</h4>
+<p>ليس تقريراً من 90 صفحة. المطلوب: <strong>جدول أولويات</strong> بأعمدة (المشكلة، الصفحات المتأثرة، الأثر المتوقع، الجهد، المسؤول). ثم صفحة واحدة تحوي أعلى خمس مشاكل بالأثر.</p>
+<div class="trap note"><p><b>فخ التقارير:</b> تسليم ملف تصدير خام من الأداة. المُقابِل يريد أن يعرف إن كنت تستطيع <em>الترتيب حسب الأثر التجاري</em> — 400 عنوان مكرر على صفحات وسوم بلا زيارات أقل أهمية من صفحة تصنيف واحدة تحوّل وتعاني توجيهاً متسلسلاً.</p></div>`},
+
+{n:37,cat:'seo',lvl:3,kw:'geo aeo ai overviews llm citation answer engine',
+q:'كيف تحسّن ظهور علامة تجارية داخل إجابات محركات الذكاء الاصطناعي؟',
+a:`<p>هذا تخصص جديد يُسمّى GEO أو AEO. الفارق الجوهري: المستهدف لم يعد النقرة، بل <strong>أن تكون المصدر المُستشهَد به داخل الإجابة</strong>.</p>
+<h4>ما يعمل فعلياً</h4>
+<ul>
+<li><strong>بنية قابلة للاقتباس:</strong> إجابة مباشرة ومكتفية بذاتها في 40–60 كلمة أسفل كل عنوان فرعي. النماذج تقتطع المقاطع، فاجعل كل مقطع مفهوماً منفرداً.</li>
+<li><strong>حقائق وأرقام منسوبة</strong> بمصدر وتاريخ — النماذج تفضّل الادعاءات القابلة للتحقق على النثر التسويقي.</li>
+<li><strong>اتساق الكيان:</strong> اسم موحّد ووصف موحّد للعلامة عبر الموقع وويكي داتا والدلائل والملفات الاجتماعية، مع ترميز Organization.</li>
+<li><strong>الذكر في مصادر يستشهد بها النموذج:</strong> مواقع المقارنات، منتديات القطاع، تقارير مستقلة. الذكر النصي بلا رابط له قيمة هنا.</li>
+<li><strong>التحديث الصادق:</strong> النماذج تميل للمصادر الحديثة في المواضيع المتغيّرة.</li>
+<li><strong>لا تحجب الزواحف</strong> التي تريد الظهور فيها — راجع robots.txt قبل أي شيء آخر.</li>
+</ul>
+<h4>القياس</h4>
+<p>راقب حصة الاستشهاد يدوياً بمجموعة استعلامات ثابتة، وتتبّع الإحالات من نطاقات الذكاء الاصطناعي في التحليلات، وراقب <em>البحث عن اسم العلامة</em> — لأن الظهور بلا نقرة يترجَم غالباً إلى بحث مباشر لاحق.</p>
+<div class="note"><p><b>الموقف المهني الصادق:</b> هذا مجال يتغيّر كل ربع سنة. من يبيعك "ضماناً للظهور في ChatGPT" يبيعك وهماً. الصحيح: أساسيات قوية + بنية قابلة للاقتباس + سلطة كيان + قياس منتظم.</p></div>`},
+
+{n:38,cat:'ppc',lvl:2,kw:'google ads structure campaign ad group pmax search',
+q:'كيف تبني هيكل حساب Google Ads لمتجر جديد؟ وما موقفك من Performance Max؟',
+a:`<h4>مبدأ الهيكلة</h4>
+<p>الحملة = <strong>وحدة الميزانية والاستهداف</strong>. المجموعة الإعلانية = <strong>وحدة النية والرسالة</strong>. القاعدة العملية: افصل ما تريد التحكم في ميزانيته أو قياسه منفصلاً.</p>
+<h4>هيكل بدء منطقي</h4>
+<ul>
+<li><strong>حملة العلامة التجارية</strong> — رخيصة، تحمي من المنافسين، لكن لا تخلط أرقامها بالباقي لأنها تجمّل المتوسط.</li>
+<li><strong>حملة بحث عام</strong> مقسّمة بالفئة أو هامش الربح، مجموعات مبنية على نية متقاربة.</li>
+<li><strong>حملة تسوّق</strong> (Shopping) — العمود الفقري لمتجر، وجودة خلاصة المنتجات فيها أهم من أي إعداد.</li>
+<li><strong>إعادة استهداف</strong> منفصلة بميزانية مستقلة.</li>
+</ul>
+<h4>موقف مهني من Performance Max</h4>
+<p>تعمل جيداً <strong>بعد</strong> توفر بيانات تحويل كافية وخلاصة منتجات نظيفة، وتُهدر الميزانية إن أُطلقت من الصفر. احتياطاتي: استبعاد جمهور العلامة التجارية لمنع التهام حركة كنت ستحصل عليها مجاناً، تقسيم مجموعات الأصول بالفئة، مراقبة تقرير مصطلحات البحث، ورفع تحويلات ذات قيمة حقيقية (ربح لا طلب).</p>
+<div class="trap note"><p><b>فخ SKAG:</b> فصل كل كلمة في مجموعة مستقلة كان منطقياً قبل المطابقة الدلالية الحديثة. اليوم يشتّت البيانات ويمنع خوارزميات المزايدة من التعلّم. الاتجاه الصحيح: تجميع أقل بنية أوضح مع تحويلات دقيقة.</p></div>`},
+
+{n:39,cat:'ppc',lvl:2,kw:'quality score ctr relevance landing page experience cpc',
+q:'ما نقاط الجودة؟ ولماذا تصرّ على أنها ليست هدفاً بحد ذاتها؟',
+a:`<h4>المكوّنات الثلاثة</h4>
+<ul>
+<li><strong>نسبة النقر المتوقعة</strong> — الوزن الأكبر عادةً.</li>
+<li><strong>ملاءمة الإعلان</strong> للاستعلام.</li>
+<li><strong>تجربة الصفحة المقصودة</strong> — الصلة والسرعة والوضوح والشفافية.</li>
+</ul>
+<p>الأثر: ترتيب الإعلان يُحسب من المزايدة × الجودة المتوقعة × عوامل السياق. جودة أعلى تعني ظهوراً أفضل بتكلفة نقرة أقل — قد يصل الفارق إلى 30–50% في التكلفة لنفس الموضع.</p>
+<h4>لماذا ليست هدفاً؟</h4>
+<p>لأنها <strong>مؤشر تشخيصي مُبسَّط من 1 إلى 10</strong>، ومحسوبة على مستوى الكلمة تاريخياً. رأيت حسابات بجودة 9 وROAS كارثي، وحسابات بجودة 6 وربح ممتاز لأن الكلمة عالية النية ومكلفة بطبيعتها. <em>المال يُقاس بالربح لا بالدرجة.</em></p>
+<h4>الاستخدام الصحيح</h4>
+<p>استخدمها كأداة تشخيص: نسبة نقر ضعيفة ← مشكلة رسالة إعلانية. ملاءمة ضعيفة ← الكلمة في المجموعة الخطأ. تجربة صفحة ضعيفة ← عدم تطابق بين وعد الإعلان ومحتوى الصفحة أو بطء الصفحة.</p>
+<div class="note"><p><b>أعلى رافعة عملية:</b> تطابق الرسالة. إن كان الإعلان يعد بـ "شحن مجاني للرياض" فيجب أن تكون هذه أول جملة في الصفحة — لا مدفونة في التذييل. هذا يرفع الجودة والتحويل معاً.</p></div>`},
+
+{n:40,cat:'ppc',lvl:1,kw:'match types negative keywords broad phrase exact search terms',
+q:'اشرح أنواع المطابقة والكلمات السلبية، وكيف تديرها أسبوعياً.',
+a:`<h4>الأنواع</h4>
+<ul>
+<li><strong>مطابقة تامة</strong> — أضيق سيطرة، لكنها تشمل اليوم المرادفات والنية نفسها لا النص الحرفي.</li>
+<li><strong>مطابقة العبارة</strong> — توازن معقول، تحافظ على المعنى مع مرونة.</li>
+<li><strong>مطابقة واسعة</strong> — أوسع وصول، وتعمل جيداً <em>فقط</em> مع مزايدة ذكية وبيانات تحويل قوية وقائمة سلبيات منضبطة. بدون ذلك هي أسرع طريقة لحرق الميزانية.</li>
+</ul>
+<h4>الكلمات السلبية</h4>
+<ul>
+<li><strong>على مستوى الحساب:</strong> قائمة دائمة (مجاني، وظائف، تحميل، شرح، مستعمل، pdf…).</li>
+<li><strong>على مستوى الحملة:</strong> لفصل النية (استبعاد كلمات العلامة من الحملة العامة).</li>
+<li><strong>على مستوى المجموعة:</strong> لمنع التداخل الداخلي.</li>
+</ul>
+<h4>الروتين الأسبوعي</h4>
+<ol>
+<li>افتح تقرير مصطلحات البحث لآخر 7–14 يوماً.</li>
+<li>رتّب بالتكلفة تنازلياً، واستبعد كل ما أنفق بلا تحويل ونيته واضحة الاختلاف.</li>
+<li>أضف المصطلحات المحوِّلة ككلمات جديدة بمطابقة أضيق.</li>
+<li>راجع تداخل السلبيات — سلبية واسعة موضوعة خطأً قد تُسكت حملة كاملة.</li>
+</ol>
+<div class="trap note"><p><b>فخ حقيقي:</b> إضافة سلبية بمطابقة واسعة مثل <code>مجاني</code> قد تحجب "توصيل مجاني" و"استشارة مجانية" — وهي عبارات عالية النية في بعض الأعمال. اضبط نوع مطابقة السلبية بعناية، ولا تنسخ قوائم جاهزة بلا مراجعة.</p></div>`},
+
+{n:41,cat:'ppc',lvl:2,kw:'meta ads campaign budget optimization learning phase creative',
+q:'كيف تهيكل حملات ميتا؟ وما مرحلة التعلّم وكيف تتعامل معها؟',
+a:`<h4>الهيكلة الحديثة</h4>
+<p>الاتجاه الصحيح اليوم هو <strong>التبسيط</strong>: عدد أقل من الحملات، ومجموعات إعلانية أقل، وميزانية على مستوى الحملة (CBO) لتسمح للنظام بالتوزيع. الاستهداف اليدوي الدقيق فقد كثيراً من قيمته مقابل الإشارات السلوكية.</p>
+<ul>
+<li>حملة اكتساب واحدة بمجموعة عريضة أو اهتمامات موسّعة + إبداع متنوّع.</li>
+<li>حملة إعادة استهداف منفصلة (زوار، سلة متروكة، مشاهدو الفيديو).</li>
+<li>الإبداع هو <strong>المتغير الحقيقي</strong> اليوم لا الاستهداف — اختبر زوايا رسالة مختلفة، لا ألوان أزرار.</li>
+</ul>
+<h4>مرحلة التعلّم</h4>
+<p>المجموعة الإعلانية تحتاج تقريباً <strong>50 حدث تحسين في 7 أيام</strong> لتخرج من التعلّم وتستقر. قبل ذلك الأداء متذبذب وغير قابل للحكم عليه.</p>
+<h4>الأخطاء التي تُعيد التعلّم من الصفر</h4>
+<ul>
+<li>تعديل الميزانية بأكثر من ~20% دفعة واحدة.</li>
+<li>تغيير الاستهداف أو حدث التحسين أو الإبداع بالكامل.</li>
+<li>إيقاف وتشغيل متكرر.</li>
+<li>تفتيت الميزانية على عشر مجموعات فلا تصل أي منها للحد الأدنى.</li>
+</ul>
+<div class="trap note"><p><b>خطأ المبتدئين:</b> الحكم على الحملة بعد 48 ساعة وإيقافها. المعيار: انتظر خروج التعلّم أو استهلاك ما يعادل 3–5 أضعاف تكلفة الاكتساب المستهدفة، أيهما أولاً. القرار قبل ذلك ضوضاء لا إشارة.</p></div>`},
+
+{n:42,cat:'ppc',lvl:2,kw:'roas cpa breakeven margin ltv budget math',
+q:'كيف تحسب ROAS المطلوب للتعادل؟ ولماذا ROAS وحده مضلل؟',
+a:`<h4>الحساب الأساسي</h4>
+<p>إن كان هامش ربحك الإجمالي 40%، فكل ريال مبيعات يعطيك 0.40 ريال ربحاً قبل الإعلان. إذاً ROAS التعادل = 1 ÷ 0.40 = <strong>2.5</strong>. أقل من ذلك أنت تخسر مع كل طلب.</p>
+<ul>
+<li>ROAS المستهدف يجب أن يكون فوق التعادل بهامش يغطي التكاليف الثابتة والمرتجعات.</li>
+<li>CPA الأقصى = هامش الربح لكل طلب. متوسط طلب 500 ريال بهامش 40% ← الحد الأقصى 200 ريال، والمستهدف الصحي 100–130.</li>
+</ul>
+<h4>لماذا ROAS مضلل وحده</h4>
+<ol>
+<li><strong>لا يرى الهامش:</strong> ROAS 4 على منتج بهامش 15% خاسر، وROAS 2 على منتج بهامش 70% رابح.</li>
+<li><strong>لا يرى المرتجعات</strong> — قطاع الأزياء قد يرتجع 20–30% من الطلبات.</li>
+<li><strong>لا يرى القيمة مدى الحياة:</strong> منتج استهلاكي يعاد شراؤه شهرياً يحتمل ROAS أول أقل من 1.</li>
+<li><strong>لا يرى التداخل:</strong> ROAS المنسوب داخل المنصة يبالغ في نسبة الفضل لنفسه.</li>
+</ol>
+<div class="note"><p><b>ما أستخدمه في الاجتماعات:</b> مؤشر <em>الربح الإجمالي بعد تكلفة الإعلان</em> وربح المساهمة، لا ROAS المنصة. والاختبار الذهبي: هل نمت المبيعات <strong>الإجمالية</strong> للمتجر لما رفعنا الإنفاق، أم أعادت المنصة نسب الفضل لنفسها فقط؟</p></div>`},
+
+{n:43,cat:'ppc',lvl:3,kw:'budget allocation new store launch testing plan riyadh',
+q:'ميزانية 40 ألف ريال لثلاثة أشهر لمتجر جديد بلا بيانات. كيف توزّعها؟',
+a:`<p>الإجابة الاحترافية تبدأ بأسئلة لا بأرقام: ما الهامش؟ ما متوسط قيمة الطلب؟ هل المنتج له طلب قائم أم يحتاج خلق وعي؟ ما جاهزية الموقع للتحويل؟ لكن إن طُلب مني إطار مبدئي:</p>
+<h4>الشهر الأول — التعلّم (نحو 30%)</h4>
+<ul>
+<li>قبل أي إنفاق: تأكيد التتبّع (تحويلات دقيقة + تتبّع من الخادم)، وصفحات منتج جاهزة، وسرعة مقبولة.</li>
+<li>حملة تسوّق/بحث على النية العالية (اسم المنتج والفئة) — تلتقط طلباً موجوداً.</li>
+<li>ميتا: اختبار 3–4 زوايا إبداعية مختلفة بجمهور واسع. الهدف بيانات لا ربح.</li>
+<li>حملة علامة تجارية صغيرة.</li>
+</ul>
+<h4>الشهر الثاني — التركيز (نحو 33%)</h4>
+<ul>
+<li>أوقف ما لم يعطِ إشارة، ضاعف على الزاوية والفئة الفائزة.</li>
+<li>فعّل إعادة الاستهداف بعد تجمّع جمهور كافٍ.</li>
+<li>ابدأ التقاط البريد/الواتساب — القناة المملوكة هي ما يخفض التكلفة لاحقاً.</li>
+</ul>
+<h4>الشهر الثالث — التوسّع (نحو 37%)</h4>
+<ul>
+<li>توسيع تدريجي (20% كل 3–4 أيام) للحفاظ على استقرار التعلّم.</li>
+<li>جماهير مشابهة، وتوسيع الفئات المربحة.</li>
+<li>اختبار قناة ثالثة (تيك توك أو سناب حسب الجمهور) بحصة صغيرة.</li>
+</ul>
+<div class="note"><p><b>احتياطي 10%</b> خارج الخطة للمواسم والفرص — في السوق السعودي رمضان واليوم الوطني والجمعة البيضاء تغيّر المعادلة تماماً، ومن ينفق ميزانيته كاملة قبلها يخسر أفضل نوافذ السنة.</p></div>
+<div class="trap note"><p><b>الفخ:</b> القفز مباشرة لتوزيع النسب. من يبدأ بالأرقام قبل أسئلة الهامش والجاهزية يكشف أنه ينفّذ لا يخطط.</p></div>`}
+);
+Q.push(
+{n:44,cat:'data',lvl:2,kw:'ga4 events parameters universal sessions model bigquery',
+q:'ما الفرق الجوهري بين GA4 والنموذج القديم؟ وما أكثر ما يُساء فهمه فيه؟',
+a:`<h4>تغيّر النموذج نفسه</h4>
+<p>Universal كان مبنياً على <strong>الجلسة</strong> كوحدة أساسية، وكل قياس مخصص يُحشر في بنية جامدة (فئة/إجراء/تسمية). GA4 مبني على <strong>الحدث</strong>: كل تفاعل حدث له معاملات حرة، والمستخدم يُتتبَّع عبر الأجهزة والمنصات.</p>
+<ul>
+<li>لا يوجد "معدل ارتداد" بالمعنى القديم — استُبدل بـ <em>معدل التفاعل</em>، وهو مقياس مختلف لا مكافئ.</li>
+<li>الجلسة تُحتسب بشكل مختلف ولا تُعاد عند تغيّر مصدر الحملة.</li>
+<li>التصدير المجاني إلى BigQuery أهم ميزة عملية — يعطيك بيانات خام على مستوى الحدث بلا تجميع.</li>
+</ul>
+<h4>أكثر ما يُساء فهمه</h4>
+<ol>
+<li><strong>عدم تطابق الأرقام</strong> مع المنصات الإعلانية: طبيعي ومتوقّع. النموذج مختلف، ونافذة الإسناد مختلفة، والمنصة تنسب لنفسها. لا تحاول التطابق — اختر مصدر حقيقة واحداً للقرار.</li>
+<li><strong>أخذ العينات والتحديد (Thresholding):</strong> إخفاء بيانات ديموغرافية عند أعداد صغيرة يجعل المجاميع تبدو غير متسقة.</li>
+<li><strong>تسمية الأحداث العشوائية:</strong> بدون معيار تسمية واضح تصبح التقارير فوضى خلال ثلاثة أشهر.</li>
+</ol>
+<div class="note"><p><b>ما أفعله في كل حساب جديد:</b> وثيقة قياس (Measurement Plan) قبل أي وسم — الأهداف، الأحداث، المعاملات، من يملك التعريف. الوسم بلا خطة هو سبب أن معظم حسابات GA4 غير قابلة للاستخدام.</p></div>`},
+
+{n:45,cat:'data',lvl:3,kw:'attribution server side tracking capi consent cookies ios',
+q:'لماذا تدهورت دقة التتبّع؟ وما الحلول العملية اليوم؟',
+a:`<h4>الأسباب الأربعة</h4>
+<ul>
+<li><strong>موافقة المستخدم:</strong> رفض التتبّع في التطبيقات وعلى الويب أزال شريحة كبيرة من البيانات.</li>
+<li><strong>قيود المتصفحات:</strong> حظر كوكيز الطرف الثالث وتقصير عمر كوكيز الطرف الأول التي تُكتب بجافاسكربت.</li>
+<li><strong>مانعات الإعلانات</strong> تمنع نصوص القياس من التحميل أصلاً.</li>
+<li><strong>تعدد الأجهزة والقنوات المظلمة:</strong> نقاش داخل واتساب أو حديث شفهي لا يترك أثراً قابلاً للقياس.</li>
+</ul>
+<h4>الحلول بالترتيب</h4>
+<ol>
+<li><strong>القياس من الخادم:</strong> حاوية GTM على الخادم + واجهات التحويل (Conversions API لدى ميتا، والتحويلات المحسّنة لدى جوجل). ترسل الحدث من خادمك بمعرّفات مجزّأة (Hashed) مع احترام الموافقة.</li>
+<li><strong>وضع الموافقة (Consent Mode)</strong> — نمذجة الفجوة بدل فقدانها بالكامل.</li>
+<li><strong>معرّف الطلب لإزالة التكرار</strong> بين حدث المتصفح وحدث الخادم — بدونه تحسب التحويل مرتين.</li>
+<li><strong>بيانات الطرف الأول:</strong> بناء قائمة بريد/واتساب مملوكة هو أفضل تحوّط طويل الأجل.</li>
+<li><strong>قياس تزايدي (Incrementality):</strong> اختبارات إيقاف جغرافي وتجارب رفع تجيب عن السؤال الحقيقي: هل هذه المبيعات ما كانت لتحدث بدون الإعلان؟</li>
+</ol>
+<div class="trap note"><p><b>مسؤولية مهنية:</b> القياس من الخادم <em>ليس</em> وسيلة للالتفاف على رفض المستخدم. تمرير بيانات لمن رفض تتبّعه مخالفة تعاقدية وقانونية. اربط التنفيذ بحالة الموافقة صراحةً.</p></div>`},
+
+{n:46,cat:'data',lvl:1,kw:'utm naming convention campaign tracking reporting dashboard',
+q:'ما معيار وسوم UTM الصحيح؟ ولماذا تعتبره من أول ما تصلحه في أي حساب؟',
+a:`<h4>الحقول ووظائفها</h4>
+<ul>
+<li><code>utm_source</code> = المنصة (google, meta, snapchat, newsletter).</li>
+<li><code>utm_medium</code> = نوع القناة (cpc, email, social, affiliate, referral).</li>
+<li><code>utm_campaign</code> = اسم الحملة بمعيار موحّد.</li>
+<li><code>utm_content</code> = المتغيّر الإبداعي — هنا يقع التعلّم الحقيقي.</li>
+<li><code>utm_term</code> = الكلمة المفتاحية للبحث المدفوع.</li>
+</ul>
+<h4>القواعد التي تحمي البيانات</h4>
+<ol>
+<li><strong>أحرف صغيرة دائماً</strong> — الوسوم حسّاسة لحالة الأحرف، و<code>Facebook</code> و<code>facebook</code> صفّان مختلفان في التقرير.</li>
+<li><strong>معيار تسمية مكتوب</strong>: مثل <code>2026-q3_ramadan_abaya_prospecting</code>. الاتساق أهم من جمال الاسم.</li>
+<li><strong>لا تضع UTM على روابط داخلية</strong> — تكسر الجلسة وتنسب الزائر لنفسك كمصدر جديد.</li>
+<li><strong>مولّد روابط مركزي</strong> (ملف مشترك) بدل ترك كل شخص يخترع صيغته.</li>
+<li>راجع أن كاش الصفحات لا يشظّي النسخ حسب المعاملات.</li>
+</ol>
+<div class="note"><p><b>لماذا أولوية؟</b> لأن كل قرار تخصيص ميزانية لاحق يقوم على تصنيف القنوات. حساب بوسوم فوضوية يعني ستة أشهر من القرارات المبنية على بيانات خاطئة — والأسوأ أنك لن تعرف أنها خاطئة.</p></div>`},
+
+{n:47,cat:'data',lvl:3,kw:'ab testing significance sample size mde cro experiment',
+q:'كيف تصمّم اختبار A/B صحيحاً؟ ومتى تقول إن الاختبار فشل؟',
+a:`<h4>قبل التشغيل</h4>
+<ol>
+<li><strong>فرضية مكتوبة:</strong> "لأن X (دليل من بيانات أو جلسات مستخدمين)، نتوقع أن Y يرفع Z بمقدار كذا."</li>
+<li><strong>مقياس أساسي واحد</strong> — عادة معدل التحويل أو الإيراد لكل زائر — ومقاييس حارسة (متوسط قيمة الطلب، المرتجعات) لكشف الأضرار الجانبية.</li>
+<li><strong>احسب حجم العينة مسبقاً</strong> من معدل التحويل الحالي وأصغر أثر يستحق الاعتماد (MDE). هذه هي الخطوة التي يتخطاها 90% من الناس.</li>
+<li><strong>حدّد مدة الاختبار</strong> بدورات أسبوعية كاملة لتغطية اختلاف السلوك بين أيام الأسبوع.</li>
+</ol>
+<h4>أثناء وبعد</h4>
+<ul>
+<li>لا تُنهِ الاختبار لحظة ظهور الدلالة — هذا يسمّى <em>Peeking</em> ويولّد نتائج إيجابية كاذبة بكثرة.</li>
+<li>افحص فحص السلامة (A/A) وتوازن توزيع الزيارات.</li>
+<li>حلّل بالشرائح (جوال مقابل سطح مكتب) — قد يخفي المجموع أثرين متعاكسين.</li>
+</ul>
+<h4>الاختبار "الفاشل"</h4>
+<p>النتيجة غير الحاسمة ليست فشلاً — الفشل الحقيقي هو اختبار بلا حجم عينة كافٍ، أو فرضية ضعيفة، أو تغيير تافه لا يستحق القياس أصلاً. اختبار لون زر على موقع بـ 300 زائر شهرياً مضيعة وقت رياضياً.</p>
+<div class="note"><p><b>للمواقع منخفضة الحركة:</b> اترك A/B واستخدم أبحاثاً نوعية — تسجيلات جلسات، اختبار قابلية استخدام مع خمسة مستخدمين، واستبيانات خروج. القرار المبني على ملاحظة نوعية أفضل من قرار مبني على دلالة إحصائية وهمية.</p></div>`},
+
+{n:48,cat:'strat',lvl:2,kw:'funnel tofu mofu bofu content mapping awareness',
+q:'اشرح قمع التسويق ونوع المحتوى المناسب لكل مرحلة، ومؤشر النجاح لكل منها.',
+a:`<h4>المراحل الثلاث</h4>
+<ul>
+<li><strong>القمة — وعي:</strong> الجمهور يعرف مشكلته لا حلّك. محتوى تعليمي، فيديو قصير، دليل، مقارنة عامة. <em>المؤشر:</em> وصول جديد، مشاهدات مؤهلة، نمو البحث عن اسم العلامة — لا المبيعات.</li>
+<li><strong>الوسط — تفكير:</strong> يقارن الحلول. مقارنات صريحة، دراسات حالة، ندوات، حاسبات، عيّنات. <em>المؤشر:</em> عملاء محتملون مؤهلون، اشتراكات، وقت تفاعل عميق.</li>
+<li><strong>القاع — قرار:</strong> يختار المزوّد. صفحة تسعير واضحة، ضمان، مراجعات، عرض تجريبي، إعادة استهداف. <em>المؤشر:</em> التحويل، تكلفة الاكتساب، معدل الإغلاق.</li>
+</ul>
+<h4>أشهر خطأ في السوق</h4>
+<p>إنفاق 90% من الميزانية على القاع لأنه "المُقاس"، ثم الشكوى من ارتفاع التكلفة. القاع محدود الحجم بطبيعته — أنت تحصد طلباً موجوداً. بدون تغذية القمة، تكلفة الاكتساب ترتفع حتمياً مع الوقت لأنك تزايد على نفس الجمهور الصغير مع منافسيك.</p>
+<div class="note"><p><b>ما بعد القمع:</b> أضف مرحلة رابعة — <em>الاحتفاظ والترويج</em>. تكلفة إعادة البيع لعميل حالي أقل بكثير، والقناة المملوكة (بريد/واتساب) هي ما يجعل الوحدات الاقتصادية تعمل على المدى الطويل.</p></div>`},
+
+{n:49,cat:'strat',lvl:3,kw:'ltv cac payback unit economics cohort retention',
+q:'كيف تحسب LTV و CAC؟ وما النسبة الصحية؟ ولماذا فترة الاسترداد أهم أحياناً؟',
+a:`<h4>الحسابات</h4>
+<ul>
+<li><strong>CAC</strong> = (كل تكاليف التسويق والمبيعات) ÷ (عدد العملاء الجدد). كلمة "كل" مهمة: الإعلان + الأدوات + الرواتب + العمولات + إنتاج المحتوى.</li>
+<li><strong>LTV بالهامش الإجمالي</strong> = متوسط قيمة الطلب × تكرار الشراء السنوي × متوسط عمر العميل بالسنوات × نسبة الهامش الإجمالي. استخدام الإيراد بدل الهامش يضاعف الرقم زوراً.</li>
+</ul>
+<h4>المعايير</h4>
+<ul>
+<li><strong>LTV:CAC ≈ 3:1</strong> صحي عموماً.</li>
+<li>أقل من 1:1 = خسارة مع كل عميل.</li>
+<li>أعلى من 5:1 = غالباً <em>لا تنفق كفاية</em> وتترك نمواً على الطاولة.</li>
+</ul>
+<h4>لماذا فترة الاسترداد أهم للشركات الصغيرة</h4>
+<p>نسبة 4:1 على مدى ثلاث سنوات لا تنفعك إن كنت تحتاج السيولة خلال 60 يوماً. فترة استرداد CAC (كم شهراً حتى يعيد العميل تكلفة اكتسابه) هي ما يحدد سرعة إعادة استثمار المال. للتجارة الإلكترونية المستهدف عادةً استرداد من الطلب الأول أو خلال 1–3 أشهر.</p>
+<div class="trap note"><p><b>فخ التحليل:</b> حساب LTV كمتوسط عام. الصحيح هو التحليل بالأفواج (Cohorts) — عملاء يناير يسلكون سلوكاً مختلفاً عن عملاء الجمعة البيضاء (الذين غالباً يشترون بخصم ولا يعودون). المتوسط العام يخفي أن قناة كاملة تجلب عملاء بلا قيمة متكررة.</p></div>`},
+
+{n:50,cat:'strat',lvl:2,kw:'saudi market arabic seasonality whatsapp local ramadan',
+q:'ما خصوصيات السوق السعودي التي تغيّر خطة التسويق الرقمي؟',
+a:`<h4>اللغة والمحتوى</h4>
+<ul>
+<li>العربية الفصحى المبسّطة للمحتوى الرسمي، ولهجة محلية في الإعلانات والسوشيال — لكن الترجمة الحرفية من الإنجليزية تُكتشف فوراً وتقتل الثقة.</li>
+<li>البحث العربي يحوي تنوّعاً إملائياً ضخماً (الهمزات، التاء المربوطة، حذف "ال") — يجب مراعاته في البحث الداخلي واستهداف الكلمات لا في إنشاء صفحات منفصلة.</li>
+<li>واجهة RTL صحيحة تقنياً، لا مجرد قلب النص.</li>
+</ul>
+<h4>الموسمية</h4>
+<p>رمضان (سلوك شراء وتوقيت تصفح مختلف تماماً — الذروة ليلاً)، العيدان، اليوم الوطني، موسم العودة للمدارس، الجمعة البيضاء. التخطيط السنوي هنا ليس رفاهية.</p>
+<h4>القنوات والسلوك</h4>
+<ul>
+<li>نفاذ عالٍ للجوال — التصميم يبدأ من الجوال حرفياً.</li>
+<li>واتساب قناة تجارية أساسية لا هامشية: خدمة عملاء، إتمام طلبات، إعادة تنشيط.</li>
+<li>سناب شات وتيك توك بثقل حقيقي في شرائح واسعة، وتأثير المشاهير والمبدعين قوي.</li>
+<li>الدفع عند الاستلام لا يزال حاضراً، وتوقّع سرعة توصيل عالٍ في المدن الرئيسية.</li>
+</ul>
+<div class="note"><p><b>الجانب التنظيمي:</b> شهادة المتجر الموثوق، متطلبات التجارة الإلكترونية، والفوترة الإلكترونية — الالتزام هنا ليس عبئاً إدارياً فقط، بل <em>إشارة ثقة تسويقية</em> تُعرض على صفحات المتجر وترفع التحويل.</p></div>`},
+
+{n:51,cat:'ecom',lvl:2,kw:'salla shopify woocommerce platform choice migration',
+q:'عميل سعودي يسألك: سلة أم شوبيفاي أم ووكومرس؟ كيف تجيب؟',
+a:`<p>لا توجد إجابة مطلقة — الإجابة تُشتق من خمسة أسئلة: الميزانية، القدرة التقنية، حجم الكتالوج، حاجة التخصيص، والسوق المستهدف.</p>
+<h4>سلة</h4>
+<ul>
+<li><strong>الأنسب لمعظم المتاجر السعودية الجديدة والمتوسطة.</strong> تكاملات محلية جاهزة: بوابات دفع محلية، شركات شحن، فوترة إلكترونية، وواجهة عربية أصيلة.</li>
+<li>سرعة إطلاق عالية وتشغيل بلا أعباء تقنية.</li>
+<li>القيود: تخصيص محدود مقارنة بمنصة مفتوحة، واعتمادية على المنصة وتطبيقاتها.</li>
+</ul>
+<h4>شوبيفاي</h4>
+<ul>
+<li>منظومة تطبيقات ضخمة وأدوات دولية ناضجة — منطقية لمن يبيع خارجياً أو يحتاج تكاملات عالمية.</li>
+<li>تكلفة تتراكم مع التطبيقات، ودعم اللغة والدفع المحلي يحتاج جهداً إضافياً.</li>
+</ul>
+<h4>ووكومرس</h4>
+<ul>
+<li>ملكية كاملة وتخصيص بلا سقف — منطقي عند نموذج بيع غير قياسي أو تكامل عميق مع نظام ERP.</li>
+<li>التكلفة الحقيقية ليست الترخيص بل <strong>التشغيل</strong>: استضافة قوية، تحديثات، أمان، أداء، ومطوّر متاح. متجر ووكومرس بلا صيانة يتحول لعبء خلال عام.</li>
+</ul>
+<div class="note"><p><b>إجابة تُظهر النضج المهني:</b> "لو كان العميل يبيع محلياً وليس لديه فريق تقني، توصيتي سلة — لأن أفضل منصة هي التي يستطيع العميل تشغيلها بعد أن أرحل أنا. اختيار ووكومرس لعميل بلا قدرة صيانة هو قرار يخدم غروري لا مصلحته."</p></div>`},
+
+{n:52,cat:'ecom',lvl:2,kw:'cro product page abandoned cart checkout conversion recovery',
+q:'متجر بزيارات جيدة وتحويل ضعيف وسلات متروكة كثيرة. ما خطة العلاج؟',
+a:`<h4>أولاً: تشخيص لا تخمين</h4>
+<p>ابدأ بقمع التسوّق: عرض المنتج ← إضافة للسلة ← بدء الدفع ← الشراء. الرقم الذي ينهار يحدد مكان المشكلة. مشكلة ما قبل السلة تعني عرض منتج ضعيف؛ مشكلة بعد بدء الدفع تعني احتكاكاً في الدفع.</p>
+<h4>صفحة المنتج</h4>
+<ul>
+<li>صور حقيقية متعددة الزوايا + صورة بمقياس واقعي + فيديو قصير.</li>
+<li>وصف يجيب عن اعتراضات لا يسرد مواصفات: المقاس، الخامة، الملمس، ماذا يحدث لو لم يناسبني.</li>
+<li><strong>وضوح الشحن والإرجاع فوق الطية</strong> — الغموض هنا أشهر سبب مباشر للترك.</li>
+<li>دليل اجتماعي: مراجعات بصور، وعدّاد مبيعات صادق.</li>
+<li>سرعة الجوال — كل ثانية تأخير تكلفك تحويلاً قابلاً للقياس.</li>
+</ul>
+<h4>مسار الدفع</h4>
+<ul>
+<li>دفع كضيف بلا إجبار على تسجيل حساب.</li>
+<li>أقل عدد حقول ممكن، ومؤشر خطوات واضح.</li>
+<li>طرق الدفع المحلية المتوقعة + الدفع عند الاستلام حيث يناسب.</li>
+<li>لا مفاجآت في التكلفة النهائية — اعرض الشحن مبكراً.</li>
+</ul>
+<h4>استرداد السلات</h4>
+<ol>
+<li>رسالة أولى بعد ساعة: تذكير بسيط بلا خصم.</li>
+<li>ثانية بعد 24 ساعة: معالجة اعتراض (سياسة الإرجاع، ضمان، مراجعة).</li>
+<li>ثالثة بعد 72 ساعة: حافز محدود عند الحاجة فقط.</li>
+</ol>
+<div class="trap note"><p><b>فخ الخصم:</b> إرسال كوبون فوري لكل سلة متروكة يدرّب عملاءك على ترك السلة عمداً انتظاراً للخصم — فتهدم هامشك بيدك. الخصم آخر أداة لا أولها، ويُعطى للشريحة التي لا تُسترد بغيره فقط.</p></div>`}
+);
+
+/* ===================== الحالة ===================== */
+const state = { cat:'all', q:'', quiz:false, done:new Set(), order:Q.map(x=>x.n) };
+const $  = s => document.querySelector(s);
+const list = $('#list');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===================== شرائح التصفية ===================== */
+(function buildChips(){
+  const box = $('#chips');
+  const mk = (key, label, count) => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.dataset.cat = key;
+    b.setAttribute('aria-pressed', key === 'all');
+    b.innerHTML = esc(label) + ' <span class="cnt">' + count + '</span>';
+    b.addEventListener('click', () => {
+      state.cat = key;
+      box.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.cat === key));
+      render();
+    });
+    return b;
+  };
+  box.appendChild(mk('all','الكل',Q.length));
+  Object.keys(CATS).forEach(k => box.appendChild(mk(k, CATS[k].name, Q.filter(x=>x.cat===k).length)));
+})();
+
+/* ===================== التصفية ===================== */
+function filtered(){
+  const term = state.q.trim().toLowerCase();
+  let out = state.order.map(n => Q.find(x => x.n === n));
+  if (state.cat !== 'all') out = out.filter(x => x.cat === state.cat);
+  if (term) {
+    out = out.filter(x =>
+      (x.q + ' ' + x.kw + ' ' + CATS[x.cat].name + ' ' + x.a.replace(/<[^>]+>/g,' '))
+        .toLowerCase().includes(term)
+    );
+  }
+  return out;
+}
+
+/* ===================== الأيقونات ===================== */
+const ICON = {
+  chev:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  check:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+  copy:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  empty:'<svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'
+};
+
+/* ===================== العرض ===================== */
+function render(){
+  const items = filtered();
+  $('#result-count').innerHTML = 'ظاهر الآن <b>' + items.length + '</b> من أصل <b>' + Q.length + '</b> سؤال';
+
+  if (!items.length) {
+    list.innerHTML = '<div class="empty">' + ICON.empty +
+      '<p>لا يوجد سؤال مطابق لبحثك.</p><p style="font-size:13px;opacity:.7">جرّب كلمة أقصر أو أعد الفلتر إلى «الكل».</p></div>';
+    return;
+  }
+
+  let html = '', lastCat = null;
+  items.forEach(item => {
+    if (item.cat !== lastCat && !state.quiz) {
+      const n = items.filter(x => x.cat === item.cat).length;
+      html += '<div class="sec-head" data-reveal><h3>' + esc(CATS[item.cat].name) + '</h3><i></i><span class="badge">' + n + '</span></div>';
+      lastCat = item.cat;
+    }
+    const done = state.done.has(item.n);
+    html +=
+      '<article class="q-card' + (done ? ' done' : '') + '" data-reveal data-n="' + item.n + '" style="--accent:' + CATS[item.cat].color + '">' +
+        '<button class="q-head" type="button" aria-expanded="false">' +
+          '<span class="q-num">' + String(item.n).padStart(2,'0') + '</span>' +
+          '<span class="q-body">' +
+            '<span class="q-tags">' +
+              '<span class="tag cat">' + esc(CATS[item.cat].name) + '</span>' +
+              '<span class="tag lvl-' + item.lvl + '">' + LVL[item.lvl] + '</span>' +
+            '</span>' +
+            '<span class="q-text">' + esc(item.q) + '</span>' +
+          '</span>' +
+          '<span class="q-chev">' + ICON.chev + '</span>' +
+        '</button>' +
+        '<div class="q-panel"><div class="q-panel-inner">' +
+          '<div class="answer">' + item.a + '</div>' +
+          '<div class="q-foot">' +
+            '<button class="mini act-done' + (done ? ' on' : '') + '" type="button">' + ICON.check + '<span>' + (done ? 'أتقنتها' : 'علّمها كمُتقنة') + '</span></button>' +
+            '<button class="mini act-copy" type="button">' + ICON.copy + '<span>نسخ السؤال</span></button>' +
+          '</div>' +
+        '</div></div>' +
+      '</article>';
+  });
+  list.innerHTML = html;
+  observeAll();
+}
+
+/* ===================== التفاعل ===================== */
+list.addEventListener('click', e => {
+  const head = e.target.closest('.q-head');
+  if (head) {
+    const card = head.closest('.q-card');
+    const open = card.classList.toggle('open');
+    head.setAttribute('aria-expanded', open);
+    return;
+  }
+  const doneBtn = e.target.closest('.act-done');
+  if (doneBtn) {
+    const card = doneBtn.closest('.q-card');
+    const n = +card.dataset.n;
+    if (state.done.has(n)) { state.done.delete(n); doneBtn.classList.remove('on'); card.classList.remove('done'); doneBtn.querySelector('span').textContent = 'علّمها كمُتقنة'; }
+    else { state.done.add(n); doneBtn.classList.add('on'); card.classList.add('done'); doneBtn.querySelector('span').textContent = 'أتقنتها'; }
+    updateMastery();
+    return;
+  }
+  const copyBtn = e.target.closest('.act-copy');
+  if (copyBtn) {
+    const n = +copyBtn.closest('.q-card').dataset.n;
+    const item = Q.find(x => x.n === n);
+    const label = copyBtn.querySelector('span');
+    navigator.clipboard.writeText(item.q).then(() => {
+      label.textContent = 'تم النسخ';
+      copyBtn.classList.add('on');
+      setTimeout(() => { label.textContent = 'نسخ السؤال'; copyBtn.classList.remove('on'); }, 1800);
+    }).catch(() => { label.textContent = 'تعذّر النسخ'; setTimeout(() => label.textContent = 'نسخ السؤال', 1800); });
+  }
+});
+
+function updateMastery(){
+  const pct = state.done.size / Q.length;
+  $('#mastery-fill').style.transform = 'scaleX(' + pct + ')';
+  $('#mastery-num').textContent = state.done.size;
+}
+
+/* ===================== البحث ===================== */
+let t;
+$('#search').addEventListener('input', e => {
+  clearTimeout(t);
+  t = setTimeout(() => { state.q = e.target.value; render(); }, 180);
+});
+
+/* ===================== فتح الكل ===================== */
+$('#expand-all').addEventListener('click', function(){
+  const cards = list.querySelectorAll('.q-card');
+  const anyClosed = [...cards].some(c => !c.classList.contains('open'));
+  cards.forEach(c => {
+    c.classList.toggle('open', anyClosed);
+    c.querySelector('.q-head').setAttribute('aria-expanded', anyClosed);
+  });
+  this.querySelector('span').textContent = anyClosed ? 'طيّ الكل' : 'فتح الكل';
+});
+
+/* ===================== وضع الاختبار ===================== */
+$('#quiz-mode').addEventListener('click', function(){
+  state.quiz = !state.quiz;
+  this.setAttribute('aria-pressed', state.quiz);
+  this.querySelector('span').textContent = state.quiz ? 'ترتيب طبيعي' : 'وضع الاختبار';
+  if (state.quiz) {
+    const a = Q.map(x => x.n);
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    state.order = a;
+  } else {
+    state.order = Q.map(x => x.n).sort((x, y) => x - y);
+  }
+  render();
+  window.scrollTo({ top: list.offsetTop - 160, behavior: 'smooth' });
+});
+
+/* ===================== كشف عند التمرير ===================== */
+let io;
+function observeAll(){
+  if (io) io.disconnect();
+  io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+  }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+  list.querySelectorAll('[data-reveal]').forEach((el, i) => {
+    el.style.transitionDelay = Math.min(i, 6) * 0.05 + 's';
+    io.observe(el);
+  });
+}
+
+/* ===================== شريط التقدّم وزر الأعلى ===================== */
+const bar = $('#progress'), topBtn = $('#top');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+    topBtn.classList.toggle('show', scrollY > 700);
+    ticking = false;
+  });
+}, { passive: true });
+topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ===================== عدّادات الهيرو ===================== */
+(function counters(){
+  const els = document.querySelectorAll('[data-count]');
+  const run = el => {
+    const target = +el.dataset.count, dur = 1100, t0 = performance.now();
+    const step = now => {
+      const p = Math.min((now - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const ob = new IntersectionObserver(en => en.forEach(e => { if (e.isIntersecting) { run(e.target); ob.unobserve(e.target); } }), { threshold: .5 });
+  els.forEach(el => ob.observe(el));
+})();
+
+/* ===================== الإقلاع ===================== */
+render();
+updateMastery();
+
+</script>
+</body>
+</html>
