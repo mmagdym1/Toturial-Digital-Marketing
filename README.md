@@ -36,8 +36,8 @@ An Arabic interactive **Digital Marketing and WordPress interview preparation gu
 ## 🚀 Run Locally
 
 ```bash
-git clone https://github.com/mmagdym1/Toturial-Digital-Marketing.git
-cd Toturial-Digital-Marketing
+git clone https://github.com/mmagdym1/digital-marketing-wordpress-interview-arabic.git
+cd digital-marketing-wordpress-interview-arabic
 ```
 
 Then open `index.html` in your browser.
@@ -55,15 +55,6 @@ Then open `index.html` in your browser.
 
 `digital marketing interview questions` · `wordpress interview questions` · `seo interview questions` · `media buyer interview` · `digital marketing arabic` · `wordpress arabic` · `marketing interview preparation` · `اسئلة مقابلة تسويق رقمي` · `اسئلة مقابلة ووردبريس` · `مقابلة ميديا باير` · `اسئلة SEO` · `التسويق الالكتروني`
 
-## 📌 Repository Naming Note
-
-The current repository name contains the word `Toturial`. For search discoverability, the correct spelling is **Tutorial**. A stronger repository name would be:
-
-`digital-marketing-wordpress-interview-arabic`
-
-or
-
-`digital-marketing-interview-bootcamp-arabic`
 
 ---
 
