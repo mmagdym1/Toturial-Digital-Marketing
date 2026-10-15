@@ -36,7 +36,7 @@ An Arabic interactive **Digital Marketing and WordPress interview preparation gu
 ## 🚀 Run Locally
 
 ```bash
-git clone https://github.com/mmagdym1/digital-marketing-wordpress-interview-arabic.git
+git clone https://github.com/reyad-dev/digital-marketing-wordpress-interview-arabic.git
 cd digital-marketing-wordpress-interview-arabic
 ```
 
@@ -54,7 +54,6 @@ Then open `index.html` in your browser.
 ## 🔎 Search Keywords
 
 `digital marketing interview questions` · `wordpress interview questions` · `seo interview questions` · `media buyer interview` · `digital marketing arabic` · `wordpress arabic` · `marketing interview preparation` · `اسئلة مقابلة تسويق رقمي` · `اسئلة مقابلة ووردبريس` · `مقابلة ميديا باير` · `اسئلة SEO` · `التسويق الالكتروني`
-
 
 ---
 
